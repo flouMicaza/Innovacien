@@ -17,9 +17,15 @@
     }
 
     function actualizarTelefono($mail,$telefono){
-        $qry = "UPDATE datos_monitor SET telefono = ? WHERE mail = ? ;";
+        $qry = "UPDATE login SET fono = ? WHERE mail = ? ;";
         $this->db->query($qry,array($telefono,$mail));
     }
+
+    function actualizarRut($mail,$rutN){
+        $qry = "UPDATE login SET rut = ? WHERE mail = ? ;";
+        $this->db->query($qry,array($rutN,$mail));
+    }
+
     function actualizarBanco($mail, $banco){
         $qry = "UPDATE datos_monitor SET banco = ? WHERE mail =?;";
         $this -> db -> query($qry, array($banco, $mail));

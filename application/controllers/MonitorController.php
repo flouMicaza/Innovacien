@@ -15,6 +15,7 @@ class MonitorController extends CI_Controller {
 		$banco = $_POST['banco'];
 		$tipo_cuenta = $_POST['tipo_cuenta'];
 		$num_cuenta = $_POST['num_cuenta'];
+		$rutN= $_POST['rut'];
 
 		$this->load->model('monitor');
 
@@ -29,17 +30,24 @@ class MonitorController extends CI_Controller {
 		}
 		if($num_cuenta != null){
 			$this -> monitor -> actualizarNumCuenta($mail,$num_cuenta);
+		}
 
-		
+		if($rutN != null){
+			$this -> monitor->actualizarRut($mail,$rutN);
+		}
+
+		$this -> load -> model('ingreso');
+		$query = $this -> ingreso -> datos($mail);
 		$data['mail'] = $this -> session -> userdata('mail');
 		$qry = $this -> monitor -> datosmonitor($data['mail']);
-		$data['telefono'] = $qry['telefono'];
+		$data['fono'] = $query['fono'];
+		$data['rut'] = $query['rut'];
 		$data['banco'] = $qry['banco'];
 		$data['tipo_cuenta'] = $qry['tipo_cuenta'];
 		$data['num_cuenta'] = $qry['num_cuenta'];
 		$this->load->view('miCuenta',$data);
 
-		}
+		
 	}
 
 	public function cargarModificarDatos(){
@@ -47,11 +55,12 @@ class MonitorController extends CI_Controller {
 		$data['tipo'] = $this -> session -> userdata('tipo');
 		$data['log'] = $this -> session -> userdata('logueado');
 		$data['mail'] = $this -> session -> userdata('mail');
+		$data['telefono'] =$this -> session -> userdata('fono');
+		$data['rut'] =$this -> session -> userdata('rut');
 
 		$mail = $this -> session ->userdata('mail');
 		$this -> load -> model('monitor');
 		$qry = $this -> monitor -> datosmonitor($data['mail']);
-		$data['telefono'] = $qry['telefono'];
 		$data['banco'] = $qry['banco'];
 		$data['tipo_cuenta'] = $qry['tipo_cuenta'];
 		$data['num_cuenta'] = $qry['num_cuenta'];

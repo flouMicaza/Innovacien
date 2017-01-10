@@ -29,7 +29,8 @@
 
 <body>
 
-    <legend>Informacion Personal</legend>
+    <legend>Informacion del usuario</legend>
+
 
 
 	<div class = "container">
@@ -41,7 +42,7 @@
 			 Nombre y apellido  </FONT>
 		</td>
 		<td>
-		<FONT COLOR=#FFF8000 FACE="sans-serif"><?php echo '  '.$nombre ?></FONT>
+		<FONT COLOR=#FFF8000 FACE="sans-serif"><?php echo '  '.$nombre_usr ?></FONT>
 		</td>
 	</tr>
 	<tr>
@@ -50,7 +51,7 @@
 			 Correo  </FONT>
 		</td>
 		<td>
-		<FONT COLOR=#FFF8000 FACE="sans-serif"><?php echo '  '.$mail ?></FONT>
+		<FONT COLOR=#FFF8000 FACE="sans-serif"><?php echo '  '.$mail_usr ?></FONT>
 		</td>		
 	</tr>
 
@@ -60,7 +61,7 @@
 			 Rut </FONT>
 		</td>
 		<td>
-		<FONT COLOR=#FFF8000 FACE="sans-serif"><?php echo '  '.$rut ?></FONT>
+		<FONT COLOR=#FFF8000 FACE="sans-serif"><?php echo '  '.$rut_usr ?></FONT>
 		</td>		
 	</tr>
 
@@ -70,12 +71,12 @@
 			 Telefono  </FONT>
 		</td>
 		<td>
-		<FONT COLOR=#FFF8000 FACE="sans-serif"><?php echo '  '.$fono ?></FONT>
+		<FONT COLOR=#FFF8000 FACE="sans-serif"><?php echo '  '.$fono_usr ?></FONT>
 		</td>		
 	</tr>
 	
 	<?php 
-		if($tipo == 'monitor'){
+		if($tipo_usr == 'monitor'){
 			echo '
 				<tr>
 					<td>
@@ -83,7 +84,7 @@
 					 	Banco  </FONT>
 					</td>
 					<td>
-					<FONT COLOR=#FFF8000 FACE="sans-serif">'.$banco.'</FONT>
+					<FONT COLOR=#FFF8000 FACE="sans-serif">'.$banco_usr.'</FONT>
 					</td>	
 				</tr>
 				<tr>
@@ -92,7 +93,7 @@
 					 	Cuenta  </FONT>
 					</td>
 					<td>
-					<FONT COLOR=#FFF8000 FACE="sans-serif">'.$tipo_cuenta.'</FONT>				
+					<FONT COLOR=#FFF8000 FACE="sans-serif">'.$cuenta_usr.'</FONT>				
 					</td>				
 				</tr>
 				<tr>
@@ -101,13 +102,22 @@
 					 	Numero de Cuenta  </FONT>
 					</td>
 					<td>
-					<FONT COLOR=#FFF8000 FACE="sans-serif">'.$num_cuenta.'</FONT>				
+					<FONT COLOR=#FFF8000 FACE="sans-serif">'.$numCuenta_usr.'</FONT>				
 					</td>				
 				</tr>
 			';
 		}
 
 	?>
+	<tr>
+		<td>
+		<FONT COLOR=#424242 FACE="sans-serif">
+			 Estado </FONT>
+		</td>
+		<td>
+		<FONT COLOR=#FFF8000 FACE="sans-serif"><?php echo '  '.$activo_usr ?></FONT>
+		</td>		
+	</tr>
 
 </P>
 </table>
@@ -116,24 +126,36 @@
 	
 </br>
 <div align="center" >
-  <div class="btn-group">
-  <form name="form1" action="<?php echo base_url(); ?>GenteController/irCambiarClave " method="post">
-    <input type="submit" value="Cambiar contraseña" class="boton">
-  </form>
-  </div>
-  <br>
-  <br>
   <?php
-  if($tipo == 'monitor'){
-  	echo '
-  		<div class="btn-group">
-	  	<form name="form2" action='.base_url().'monitorController/cargarModificarDatos  method="post">
-	    	<input type="submit" value="Modificar Datos " class="boton">
-	  	</form> 
-	  	</div>';
+	
+  	if($tipo_usr != 'administrador'){
+		if($activo_usr == 'Activo'){
+			$boton = 'Desactivar Usuario';
+			echo '
+				<div class="btn-group">
+				<form name="form2" action='.base_url().'adminController/desactivarUsuario method="post">
+					 <input type="hidden" name="mail_usr" value="'.$mail_usr.'">
+					<input type="submit" value="'.$boton.'" class="boton">
+				</form> 
+				</div>';
+		}
+		else{
+			$boton = 'Activar Usuario';
+			echo '
+				<div class="btn-group">
+				<form name="form2" action='.base_url().'adminController/activarUsuario method="post">
+					 <input type="hidden" name="mail_usr" value="'.$mail_usr.'">
+					<input type="submit" value="'.$boton.'" class="boton">
+				</form> 
+				</div>';
+		}
+
+		
   }
   ?>
 </div> 
+<br>
+</br>
 
 </body>
 	

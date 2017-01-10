@@ -27,7 +27,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       <label class="col-md-4 control-label" for="textinput">Telefono Actual: <FONT COLOR=#FFF8000 FACE="sans-serif"><?php echo $telefono ?></label></FONT>
       
       <div class="col-md-4">
-      <input id="textinput" name="telefono" type="textinput" placeholder="telefono nuevo" class="form-control input-md" required="">
+      <input id="textinput" name="telefono" type="textinput" placeholder="telefono nuevo" class="form-control input-md" >
+        
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="col-md-4 control-label" for="textinput">Rut Actual: <FONT COLOR=#FFF8000 FACE="sans-serif"><?php echo $rut ?></label></FONT>
+      
+      <div class="col-md-4">
+      <input id="textinput" name="rut" type="textinput" placeholder="Rut nuevo" class="form-control input-md" >
         
       </div>
     </div>
@@ -78,7 +87,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <div class="form-group">
       <label class="col-md-4 control-label" for="email">Numero de cuenta: <FONT COLOR=#FFF8000 FACE="sans-serif"><?php echo $num_cuenta ?></label> </FONT>
       <div class="col-md-4">
-      <input id="textinput" name="num_cuenta" type="textinput" placeholder="numero de cuenta nuevo" class="form-control input-md" required="">        
+      <input id="textinput" name="num_cuenta" type="textinput" placeholder="numero de cuenta nuevo" class="form-control input-md" >        
       </div>
     </div>
 

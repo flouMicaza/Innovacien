@@ -3,7 +3,7 @@
 
 <head>
 	<?php
-		$data['tipo'] = 'monitor';
+		$data['tipo'] = $tipo;
 		$this->load->view('barra_superior',$data);
 	?>
 </head>

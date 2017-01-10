@@ -8,11 +8,13 @@ class GenteController extends CI_Controller {
 		$data['nombre'] = $this -> session ->userdata('nombre');
 		$data['tipo'] = $this -> session -> userdata('tipo');
 		$data['log'] = $this -> session -> userdata('logueado');
-		$data['mail'] = $this -> session -> userdata('mail');
+		$data['mail'] = $this -> session -> userdata('mail');	
+		$data['rut'] = $this -> session -> userdata('rut');
+		$data['fono'] = $this -> session -> userdata('fono');
+
 		if($data['tipo'] == 'monitor'){
 			$this -> load -> model('monitor');
 			$qry = $this -> monitor -> datosmonitor($data['mail']);
-			$data['telefono'] = $qry['telefono'];
 			$data['banco'] = $qry['banco'];
 			$data['tipo_cuenta'] = $qry['tipo_cuenta'];
 			$data['num_cuenta'] = $qry['num_cuenta'];
@@ -21,7 +23,8 @@ class GenteController extends CI_Controller {
 	}
 
 	public function evento(){
-		$this->load->view('Eventos');	
+		$data['tipo'] = $this->session->userdata('tipo');
+		$this->load->view('Eventos',$data);	
 	}
 
 	public function blog(){

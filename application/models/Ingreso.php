@@ -20,6 +20,14 @@
         }
     }
 
+    function datos($mail){
+        $sql = "SELECT fono,rut FROM login WHERE mail =? ;";
+        $qry = $this->db->query($sql,$mail);
+        $resultado = $qry->row_array();
+        return $resultado;
+    }
+
+
 
 }
 

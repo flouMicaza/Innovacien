@@ -59,6 +59,22 @@
 		</P>
 	</div>
 
+	<div>
+		<P ALIGN=center>
+		<FONT SIZE=4 COLOR=#424242 FACE="sans-serif">
+			 Telefono: </FONT>
+		<FONT SIZE=4 COLOR=#FFF8000 FACE="sans-serif"><?php echo $fono_creado ?></FONT>		
+		</P>
+	</div>
+
+	<div>
+		<P ALIGN=center>
+		<FONT SIZE=4 COLOR=#424242 FACE="sans-serif">
+			 Rut: </FONT>
+		<FONT SIZE=4 COLOR=#FFF8000 FACE="sans-serif"><?php echo $rut_creado ?></FONT>		
+		</P>
+	</div>
+	
 	<div ALIGN = center>
 
 		<form action="<?php echo base_url();?>adminController/irInicio">

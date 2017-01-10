@@ -18,7 +18,8 @@ class Welcome extends CI_Controller {
 		$data['nombre'] = $this -> session ->userdata('nombre');
 		$data['tipo'] = $this -> session -> userdata('tipo');
 		$data['logueado'] = $this -> session -> userdata('logueado');
-	
+		$data['fono'] = $this -> session -> userdata('fono');
+		$data['rut'] = $this -> session -> userdata('rut');
 
 		if($this->session->userdata('logueado')){
 			$this->load->view('Inicio',$data);
@@ -36,6 +37,7 @@ class Welcome extends CI_Controller {
 		$this->load->model('ingreso');
 		$resultado = $this->ingreso->ingreso($mail,$pass);
 
+
 		if ($resultado == null){
 			$this->load->view('errorSesion');
 			return;
@@ -45,16 +47,31 @@ class Welcome extends CI_Controller {
 			'mail' => $resultado['mail'],
 			'nombre' => $resultado['nombre']." ".$resultado['apellido'],
 			'tipo' => $resultado['tipo'],
+			'rut' =>$resultado['rut'],
+			'fono' =>$resultado['fono'],
+			'activo' =>$resultado['activo'],
 			'logueado' => TRUE
 		);
 
-			
+
+		if(!$data_usuario['activo']){
+			$this -> load -> view('baneado2');
+		}
+
+		else{
+
 			$this -> session ->set_userdata($data_usuario);
 			
 			$data['nombre'] = $this -> session ->userdata('nombre');
 			$data['tipo'] = $this -> session -> userdata('tipo');
 			$data['logueado'] = $this -> session -> userdata('logueado');
+
+			$data['fono'] = $this -> session -> userdata('fono');
+
+			$data['rut'] = $this -> session -> userdata('rut');
+			
 			$this ->load ->view('Inicio',$data);
+		}
 		
 	}
 

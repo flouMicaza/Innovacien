@@ -13,7 +13,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 
   <meta charset="UTF-8">
-  <title>Innovacien 1.0</title>
+  <title>Innovacien </title>
 
 </head>
 
@@ -47,8 +47,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
               <ul class="nav navbar-nav navbar-right">
               <li><a href="<?php echo base_url(); ?>adminController/miCuenta ">Mi cuenta</a></li>
               <li><a href="<?php echo base_url();?>adminController/crearCuenta">Crear Cuenta</a></li>
-              <li><a href="<?php echo base_url(); ?>adminController/irEventoAdmin ">Eventos</a></li>
-              <li><a href="<?php echo base_url(); ?>adminController/irBlogAdmin">Blog</a></li>
+              <li><a href="<?php echo base_url(); ?>adminController/irABuscar">Buscar</a></li>
+              <li><a href="<?php echo base_url(); ?>proyectosController/inicioProyecto">Proyectos</a></li>
+              <li><a href="<?php echo base_url(); ?>adminController/irDescargas ">Descargas</a></li>
               <li><a href="<?php echo base_url(); ?>welcome/cerrarSesion">Cerrar Sesión</a></li>
               </ul> 
               </div>        
@@ -62,8 +63,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         
               <ul class="nav navbar-nav navbar-right">
               <li><a href="<?php echo base_url(); ?>genteController/miCuenta ">Mi cuenta</a></li>
-              <li><a href="<?php echo base_url(); ?>genteController/evento">Eventos</a></li>
-              <li><a href="<?php echo base_url(); ?>genteController/blog">Blog</a></li>
+              <li><a href="<?php echo base_url(); ?>genteController/evento">Proyectos</a></li>
               <li><a href="<?php echo base_url(); ?>welcome/cerrarSesion">Cerrar Sesión</a></li>
               </ul> 
               </div>        
