@@ -20,7 +20,7 @@
 
 <body>
 
-    <legend>Informacion del proyecto "<?php echo $nombre_proyecto?>"</legend>
+    <legend>Archivos de: <?php echo $nombre_proyecto?></legend>
 
     <div class = "container" style="overflow-x:auto;">
     *Seleccione un correo para ver información del usuario.
@@ -38,12 +38,13 @@
 	<?php
 	if($tipo == 'administrador'){
 		echo'
-		<th colspan = "2"><FONT COLOR=#FFF8000>Borrar o Editar</FONT></th>
+		<th><FONT COLOR=#FFF8000>Borrar</FONT></th>
 		';
 	}
 	?>
 
 	
+
 
 	<tr>
 
@@ -54,6 +55,8 @@
 	foreach ($qry -> result_array() as $row) {
 			$spoiler = 'spoiler'.$i;
 			$mostrar = 'mostrar'.$i;
+			$tamaño = filesize($_SERVER['DOCUMENT_ROOT'].$row['ubicacion_archivo']);
+			$tamañoKB = round($tamaño /(1024),2);
 		echo '<tr>
 				
 				<td>
@@ -69,22 +72,33 @@
 					<input type="hidden" name="nombre_archivo" value="'.$row['nombre_archivo'].'">
   					<button type="submit" name="link_archivo" value="'.$row['ubicacion_archivo'].'" class="btn-link" >Descargar</button>
 				</form>
-				</td>
+				</td>';
+				if($tipo == 'administrador'){
+					echo '
 				<td>
 					<form action="'.base_url().'crearProyecto/borrarArchivo" method="post" >
 					<input type="hidden" name="nombre_proyecto" value="'.$nombre_proyecto.'">
 					<input type="hidden" name="nombre_archivo" value="'.$row['nombre_archivo'].'">
   					<button type="submit" name="link_archivo" value="'.$row['ubicacion_archivo'].'" class="btn-link" >Borrar</button>
   					</form>
-				</td>
-				<td>
-					Editar
-				</td>
+				</td>';
+				}
+				echo'
 			</tr>
 			<tr>
-				<td colspan="6">
+				<th>
 				<div class="'.$mostrar.'" style="display: none;">
-					'.$row['descripcion'].'
+					<FONT COLOR=#FFF8000>Tamaño:</FONT> 
+				</div>
+				</th>
+				<td>
+					<div class="'.$mostrar.'" style="display: none;">
+					'.$tamañoKB.' Kb
+				</div>
+				</td>
+				<td colspan="4">
+				<div class="'.$mostrar.'" style="display: none;">
+					<STRONG><FONT COLOR=#FFF8000>Descripcion: </FONT></STRONG>'.$row['descripcion'].'
 				</div>';
 
 				echo " 

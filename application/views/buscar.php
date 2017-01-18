@@ -38,7 +38,7 @@
       <div class="col-md-4">
       <input id="autocomplete" name="mail" type="text" placeholder="Correo" class="form-control input-md" required="ingrese un correo">        
       </div>
-    </div>
+</div>
  	<div class="form-group">
       <label class="col-md-4 control-label" for="singlebutton"></label>
       <div class="col-md-4">

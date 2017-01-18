@@ -24,14 +24,42 @@
         height:30px;
         border-radius: 5px;
        }
+
+
+    .google-maps {
+        position: relative;
+        padding-bottom: 75%; // This is the aspect ratio
+        height: 0;
+        overflow: hidden;
+    }
+    .google-maps iframe {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 75% !important;
+        height: 75% !important;
+    }
 </style>
 </head>
 
 <body>
 
     <legend>Informacion del lugar"<?php echo $nombreLugar?>"</legend>
+	<center>
+    <div style="width:500px; padding:3px;">
+  <?php 
+  if($tipo=='administrador'){ ?>
 
+	<div style="width:245px; float:left;"">
+		<form class="form-horizontal" method = "post" action="<?php echo base_url();?>lugarController/cargarmodificarLugar">
+		<button type ="submit" id="singlebutton" name="lugar" value =<?php echo '"'.$nombreLugar.'"' ?> class="botones" >Modificar Lugar</button>
 
+		</form>
+<?php } ?>
+	</div>
+	</div>
+	</center>
+	<br>
 	<div class = "container">
 	<P ALIGN=center>
 
@@ -86,8 +114,7 @@
 </table>
 </div>
 
-<?php if($evento=='si'){
-echo $idEvento ?>
+<?php if($evento=='si'){ ?>
 	<center>
 	<div style="width:500px; padding:3px;">
 		<div style="width:245px; float:left;">
@@ -97,13 +124,25 @@ echo $idEvento ?>
 
 			</form>
 		</div>
-<?php } ?>
+	</div>
+	</center>
+	<br>
+	<br>
+
+<?php } ?> 
+<div id="map" class="google-maps">
+
+<?php 
+
+	if ($link!='NoHay'){?>
+		<center>
+		<?php 
+		/* link del mapa */
+ 		echo $link 
+ 		?>
+		</center>
+	<?php }?>
 </div>
-</center>
-
-
-<center>
-<iframe src="https://www.google.es/maps/place/Sim%C3%B3n+Bol%C3%ADvar,+Regi%C3%B3n+Metropolitana,+Chile/@-33.4474559,-70.5766403,17z/data=!3m1!4b1!4m5!3m4!1s0x9662cfb2d2d782d7:0xb867ad187039e3b0!8m2!3d-33.4474559!4d-70.5744516" width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
-
-</center>
+<br>
 </body>
+

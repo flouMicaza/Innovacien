@@ -49,9 +49,12 @@ class Welcome extends CI_Controller {
 			'tipo' => $resultado['tipo'],
 			'rut' =>$resultado['rut'],
 			'fono' =>$resultado['fono'],
-			'activo' =>$resultado['activo'],
-			'logueado' => TRUE
+			'activo' =>$resultado['activo']
 		);
+
+		if(isset($_POST['dejarIniciado'])){
+			$data_usuario['logueado']=TRUE;
+		}
 
 
 		if(!$data_usuario['activo']){

@@ -234,6 +234,8 @@ class CrearProyecto extends CI_Controller {
 			$data['mensaje'] = "Error al borrar archivo, intentelo otra vez";
 		}
 	}
+	
+	
 
 
 

@@ -30,6 +30,13 @@ class ProyectosController extends CI_Controller {
 		$data['creador'] = $datos['creador'];
 		$data['tipo_p'] = $datos['tipo'];
 
+
+		if ($data['tipo']=="monitor"){
+			$proyecto=$_POST['nombre'];
+			$this->load->model('verProyectosModel');
+			$eventos=$this->verProyectosModel->eventosFuturos($proyecto,$data['mail']);
+			$data['eventos']=$eventos;
+		}
 		$this->load->view('infoProyecto',$data);
 	}
 

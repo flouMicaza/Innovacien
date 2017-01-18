@@ -11,6 +11,22 @@
 		$data['mensaje'] = null;
 		$this->load->view('barra_superior',$data);
 	?>
+
+	<style type="text/css">
+<!--
+.botones {
+      font-size:15px;
+        font-family:sans-serif;
+        font-weight:bold;
+        color:white;
+        background:#FF8000;
+        border:5px;
+        width:150px;
+        height:30px;
+        border-radius: 5px;
+}
+-->
+</style>
 </head>
 
 <body>
@@ -78,7 +94,7 @@
 	<div ALIGN = center>
 
 		<form action="<?php echo base_url();?>adminController/irInicio">
-		<button type ="submit" id="singlebutton" name="singlebutton" class="btn btn-primary">Volver al inicio</button>
+		<button type ="submit" id="singlebutton" name="singlebutton" class="botones">Volver al inicio</button>
 		</form>
 	</div>
 

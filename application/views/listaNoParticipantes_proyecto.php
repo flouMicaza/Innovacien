@@ -74,7 +74,7 @@
 				</td>
 				<td>'.$estado.'</td>
 				<td>
-				<form action="'.base_url().'crearProyecto/agregarParticipante2" method="post">
+				<form action="'.base_url().'participantesEventos/agregarParticipante2" method="post">
 				<input type="hidden" name="nombre_proyecto" value="'.$nombre_proyecto.'">
 				<input type="hidden" name="tipo_usr" value="'.$tipo_usr.'">
 				<button type="submit" name="mail_participante" value="'.$row['mail'].'" class="btn-link">Agregar</button>	

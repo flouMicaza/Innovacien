@@ -6,8 +6,8 @@ class Usuario extends CI_Model{
 	}
 	
 	function ingresoPersona($mail,$nombre,$apellido,$tipo,$contraseña,$fono,$rut){
-		$qry = "INSERT INTO login VALUES (?,?,?,?,?,?,?);";
-		$this-> db -> query($qry, array($mail,$nombre,$apellido,$tipo,$contraseña,$fono,$rut));
+		$qry = "INSERT INTO login VALUES (?,?,?,?,?,?,?,?);";
+		$this-> db -> query($qry, array($mail,$nombre,$apellido,$tipo,$contraseña,$rut,$fono,1));
 		$qry = "SELECT * FROM login WHERE mail = ? AND contraseña = ?";
 		$ans = $this ->db->query($qry, array($mail,$contraseña));
 		$resultado = $ans->row_array();

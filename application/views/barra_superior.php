@@ -15,6 +15,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   <meta charset="UTF-8">
   <title>Innovacien </title>
 
+
+
 </head>
 
 
@@ -63,7 +65,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         
               <ul class="nav navbar-nav navbar-right">
               <li><a href="<?php echo base_url(); ?>genteController/miCuenta ">Mi cuenta</a></li>
-              <li><a href="<?php echo base_url(); ?>genteController/evento">Proyectos</a></li>
+              <li><a href="<?php echo base_url(); ?>genteController/eventos">Eventos</a></li>
               <li><a href="<?php echo base_url(); ?>welcome/cerrarSesion">Cerrar Sesión</a></li>
               </ul> 
               </div>        

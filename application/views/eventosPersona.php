@@ -13,58 +13,54 @@
 		$this->load->view('barra_superior',$data);
 	?>
 	<style type="text/css">
-  .botones{
-        font-size:15px;
+	<!--
+	.botones {
+	    font-size:15px;
         font-family:sans-serif;
         font-weight:bold;
         color:white;
         background:#FF8000;
         border:5px;
-        width:200px;
-        height:30px;
+        width:150px;
+        height:50px;
         border-radius: 5px;
-       }
+	}
+	-->
 </style>
 </head>
 
 <body>
+	
+    <legend>Lista de futuros eventos</legend>
 
-    <legend>Lista de eventos proyecto <? echo $nombre_p?></legend>
-    <center>
-        <form class="form-horizontal" method = "post" action="<?php echo base_url();?>eventosController/irCrearEvento">
-		<button type ="submit" id="singlebutton" name="proyecto" value = <?php echo '"'.$nombre_p.'"' ?> class="botones" >Crear nuevo evento</button>
-
-		</form>
-	</center>
     <div class = "container" style="overflow-x:auto;">
-    *Seleccione un evento para ver su información.
+    *Seleccione un evento para ver la información.
 	<P ALIGN=center>
+	<div style="width:245px; float:right;">
+				<form class="form-horizontal" method = "post" action="<?php echo base_url();?>eventosController/eventosAnteriores">
+				<button type ="submit" id="singlebutton" value="'.$nombre_p.'" class="botones" name="nombre_p" >Eventos Anteriores </button>
+				</form>	
+	</div>	
 	<table ALIGN = center class = "table table-hover">
-	<tr>
-		
-		<th><FONT COLOR=#FFF8000>Nombre </FONT></th>
-		<th><FONT COLOR=#FFF8000>Fecha</FONT></th>
-		<th><FONT COLOR=#FFF8000>Hora</FONT></th>
-		<th><FONT COLOR=#FFF8000>Duración</FONT></th>
-		<th><FONT COLOR=#FFF8000>Lugar</FONT></th>
-		
-	</tr>
+	<tr>		
+		<th><FONT COLOR=#FFF8000>Nombre</FONT></th>		
+
+
+
 
 <?php
 
 	$i = 0;
-	foreach ($qry -> result_array() as $row) {
+	foreach ($eventos->result_array() as $row) {
+		
 		echo '<tr>
 				<td>
 				<form action="'.base_url().'eventosController/irInfoEvento" method="post">
-					<input type = "hidden" name="nombre_proyecto" value = "'.$nombre_p.'">
   					<button type="submit" name="evento" value="'.$row['idevento'].'" class="btn-link">'.$row['nombre'].'</button>
 				</form>
-				</td>
-				<td>'.$row['fecha'].'</td>
-				<td>'.$row['hora'].'</td>
-				<td>'.$row['duracion'].'</td>
-				<td>'.$row['nombre_lugar'].'</td>
+
+
+				</td>				
 			  <tr>';	
 	}	
 
@@ -73,7 +69,6 @@
 	</table>
 	</P>
 	
-</br>
-<br>
+
 
 </body>

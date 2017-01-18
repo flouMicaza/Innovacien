@@ -31,7 +31,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 * {
   box-sizing: border-box;
 }
-
+ 
 .wrapper {
   display: flex;
   align-items: center;
@@ -187,6 +187,7 @@ footer a, footer a:link {
     <i class="fa fa-user"></i>
     <input type="password" name="pass" placeholder="Contraseña" />
     <i class="fa fa-key"></i>
+    <p align="center"><input type="checkbox" name="dejarIniciado" /> No cerrar sesion</p>
     <a href="<?php echo base_url(); ?>welcome/irRecuperarClave">Olvidaste tu contraseña?</a>
     <button type ="submit">
       <i class="spinner"></i>
