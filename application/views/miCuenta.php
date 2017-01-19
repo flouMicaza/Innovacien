@@ -117,7 +117,8 @@
 </br>
 <div align="center" >
   <div class="btn-group">
-  <form name="form1" action="<?php echo base_url(); ?>GenteController/irCambiarClave " method="post">
+  <form name="form1" action="<?php echo base_url(); ?>GenteController/irCambiarClave " method="get">
+  	<input type="hidden" value="<?php echo $mail; ?>" name="mail">
     <input type="submit" value="Cambiar contraseña" class="boton">
   </form>
   </div>
@@ -127,7 +128,8 @@
   if($tipo == 'monitor'){
   	echo '
   		<div class="btn-group">
-	  	<form name="form2" action='.base_url().'monitorController/cargarModificarDatos  method="post">
+	  	<form name="form2" action='.base_url().'monitorController/cargarModificarDatos  method="get">
+	  		<input type="hidden" value="'.$mail.'" name="mail">
 	    	<input type="submit" value="Modificar Datos " class="boton">
 	  	</form> 
 	  	</div>';

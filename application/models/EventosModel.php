@@ -241,20 +241,20 @@ class EventosModel extends CI_Model
 	}
 
 	public function listaPagosMonitor($mail_monitor){
-		$qry = "SELECT * FROM deudas WHERE mail_monitor = ? ;";
+		$qry = "SELECT * FROM deudas WHERE mail_monitor = ? ORDER BY fecha DESC;";
 		return $this -> db -> query($qry, array($mail_monitor));
 	}
 
 	public function deudaTotalMonitor($mail_monitor){
 		$qry = "SELECT * FROM deuda_total WHERE mail = ?;";
 		$ans = $this -> db -> query($qry,$mail_monitor);
-		return $ans -> result_array();
+		return $ans -> row_array();
 	}
 
 
 	public function listaTotalDeudas(){
-		$qry = "SELECT * FROM deuda_total ORDER BY deuda_total DESC;";
-		return $this -> db > query($qry);
+		$qry = "SELECT * FROM deuda_total ORDER BY deuda_total.deuda_total DESC;";
+		return $this -> db -> query($qry);
 	}
 	
 }

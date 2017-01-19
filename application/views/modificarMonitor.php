@@ -18,7 +18,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     
     <form class="form-horizontal" method = "post" action="<?php echo base_url();?>monitorController/actualizarDatos">
     <fieldset>
-
+    <input type="hidden" name="mail" value="<?php echo $mail;?>">
     <!-- Form Name -->
     <legend>Cambiar Datos</legend>
 

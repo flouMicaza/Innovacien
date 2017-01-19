@@ -40,111 +40,136 @@ class LugarController extends CI_Controller {
 
 	public function irCrearLugar(){
 		$data['tipo'] = $this -> session -> userdata('tipo');
-
-		$this->load->view('crearLugar',$data);
+		if($data['tipo']!='administrador'){
+			$this->load->view('infiltrado');
+			return;
+		}
+		else{
+			$this->load->view('crearLugar',$data);
+		}
 	}
 
 	public function crearLugar(){
 		$data['tipo'] = $this -> session -> userdata('tipo');
-		$nombreLugar=$_POST['nombreLugar'];
-		$nombre_encargado=$_POST['encargado'];
-		$telefono=$_POST['telefono'];
-		$mail_encargado=$_POST['mailEncargado'];
-		$direccion=$_POST['direccion'];
-		if ($_POST['linkDireccion'] !=null) {
-			$linkDireccion=$_POST['linkDireccion'];
+
+		if($data['tipo']!='administrador'){
+			$this->load->view('infiltrado');
+			return;
 		}
-		else{ $linkDireccion='NoHay'; }
+		else{
 
-		$this-> load -> model('lugaresModel');
-		$lugarCreado=$this->lugaresModel->crearLugar($nombreLugar,$nombre_encargado,$telefono,$mail_encargado,$direccion,$linkDireccion);
+			$nombreLugar=$_POST['nombreLugar'];
+			$nombre_encargado=$_POST['encargado'];
+			$telefono=$_POST['telefono'];
+			$mail_encargado=$_POST['mailEncargado'];
+			$direccion=$_POST['direccion'];
+			if ($_POST['linkDireccion'] !=null) {
+				$linkDireccion=$_POST['linkDireccion'];
+			}
+			else{ $linkDireccion='NoHay'; }
 
-		$data['nombreLugar']=$lugarCreado['nombre_lugar'];
-		$data['nombre_encargado']=$lugarCreado['nombre_encargado'];
-		$data['telefono']=$lugarCreado['telefono'];
-		$data['mail_encargado']=$lugarCreado['mail'];
-		$data['direccion']=$lugarCreado['direccion'];
-		$data['link']=$lugarCreado['link'];
-		$data['evento']='no';
-		$this->load->view('infoLugar',$data);
+			$this-> load -> model('lugaresModel');
+			$lugarCreado=$this->lugaresModel->crearLugar($nombreLugar,$nombre_encargado,$telefono,$mail_encargado,$direccion,$linkDireccion);
 
+			$data['nombreLugar']=$lugarCreado['nombre_lugar'];
+			$data['nombre_encargado']=$lugarCreado['nombre_encargado'];
+			$data['telefono']=$lugarCreado['telefono'];
+			$data['mail_encargado']=$lugarCreado['mail'];
+			$data['direccion']=$lugarCreado['direccion'];
+			$data['link']=$lugarCreado['link'];
+			$data['evento']='no';
+			$this->load->view('infoLugar',$data);
 
+		}
 	}
 
 	public function cargarModificarLugar(){
 		$data['tipo']=$this -> session -> userdata('tipo');
-		$lugar=$_POST['lugar'];
 
-		$this->load->model('lugaresModel');
-		$datos=$this->lugaresModel->verLugar($lugar);
+		if($data['tipo']!='administrador'){
+			$this->load->view('infiltrado');
+			return;
+		}
+		else{
+			$lugar=$_POST['lugar'];
 
-		$data['nombreLugar']=$datos['nombre_lugar'];
-		$data['nombre_encargado']=$datos['nombre_encargado'];
-		$data['telefono']=$datos['telefono'];
-		$data['mail_encargado']=$datos['mail'];
-		$data['direccion']=$datos['direccion'];
-		$data['link']=$datos['link'];
-		$data['evento']='no';
+			$this->load->model('lugaresModel');
+			$datos=$this->lugaresModel->verLugar($lugar);
 
-		$this->load ->view('modificarLugar',$data);
+			$data['nombreLugar']=$datos['nombre_lugar'];
+			$data['nombre_encargado']=$datos['nombre_encargado'];
+			$data['telefono']=$datos['telefono'];
+			$data['mail_encargado']=$datos['mail'];
+			$data['direccion']=$datos['direccion'];
+			$data['link']=$datos['link'];
+			$data['evento']='no';
+
+			$this->load ->view('modificarLugar',$data);
+		}
 	}
 
 	public function actualizarLugar(){
 		$data['tipo'] = $this -> session -> userdata('tipo');
-		$nombreOriginal=$_POST['nombreOriginal'];
-		$nombreLugar=$_POST['nombre'];
-		$nombre_encargado=$_POST['nombre_encargado'];
-		$telefono=$_POST['telefono'];
-		$mail_encargado=$_POST['mail_encargado'];
-		$direccion=$_POST['direccion'];
-		if ($_POST['link'] !=null) {
-			$linkDireccion=$_POST['link'];
+
+		if($data['tipo']!='administrador'){
+			$this->load->view('infiltrado');
+			return;
 		}
-		else{ $linkDireccion=null; }
+		else{
+			$nombreOriginal=$_POST['nombreOriginal'];
+			$nombreLugar=$_POST['nombre'];
+			$nombre_encargado=$_POST['nombre_encargado'];
+			$telefono=$_POST['telefono'];
+			$mail_encargado=$_POST['mail_encargado'];
+			$direccion=$_POST['direccion'];
+			if ($_POST['link'] !=null) {
+				$linkDireccion=$_POST['link'];
+			}
+			else{ $linkDireccion=null; }
 
-		$this->load->model('lugaresModel');
-		
-		if($nombre_encargado!=null){
-			$this->lugaresModel->actualizarNombre_Encargado($nombre_encargado,$nombreOriginal);
+			$this->load->model('lugaresModel');
+			
+			if($nombre_encargado!=null){
+				$this->lugaresModel->actualizarNombre_Encargado($nombre_encargado,$nombreOriginal);
+			}
+
+			if($telefono!=null){
+				$this->lugaresModel->actualizarTelefono($telefono,$nombreOriginal);
+			}
+
+			if($mail_encargado!=null){
+				$this->lugaresModel->actualizarMail($mail_encargado,$nombreOriginal);
+			}
+
+			if($direccion!=null){
+				$this->lugaresModel->actualizarDireccion($direccion,$nombreOriginal);
+			}
+
+			if($linkDireccion!=null){
+				$this->lugaresModel->actualizarLink($linkDireccion,$nombreOriginal);
+			}
+
+			if($nombreLugar!=null){
+				$this->lugaresModel->actualizarNombreLugar($nombreLugar,$nombreOriginal);
+
+				$datos=$this-> lugaresModel ->verLugar($nombreLugar);
+			}
+
+			else{ 
+			$datos=$this-> lugaresModel ->verLugar($nombreOriginal);}
+
+
+
+			$data['nombreLugar']= $datos['nombre_lugar'];
+			$data['nombre_encargado'] = $datos['nombre_encargado'];
+			$data['telefono'] = $datos['telefono'];
+			$data['mail_encargado'] = $datos['mail'];
+			$data['direccion'] = $datos['direccion'];
+			$data['link'] = $datos['link'];
+			$data['evento']='no';
+
+
+			$this->load->view('infoLugar',$data);
 		}
-
-		if($telefono!=null){
-			$this->lugaresModel->actualizarTelefono($telefono,$nombreOriginal);
-		}
-
-		if($mail_encargado!=null){
-			$this->lugaresModel->actualizarMail($mail_encargado,$nombreOriginal);
-		}
-
-		if($direccion!=null){
-			$this->lugaresModel->actualizarDireccion($direccion,$nombreOriginal);
-		}
-
-		if($linkDireccion!=null){
-			$this->lugaresModel->actualizarLink($linkDireccion,$nombreOriginal);
-		}
-
-		if($nombreLugar!=null){
-			$this->lugaresModel->actualizarNombreLugar($nombreLugar,$nombreOriginal);
-
-			$datos=$this-> lugaresModel ->verLugar($nombreLugar);
-		}
-
-		else{ 
-		$datos=$this-> lugaresModel ->verLugar($nombreOriginal);}
-
-
-
-		$data['nombreLugar']= $datos['nombre_lugar'];
-		$data['nombre_encargado'] = $datos['nombre_encargado'];
-		$data['telefono'] = $datos['telefono'];
-		$data['mail_encargado'] = $datos['mail'];
-		$data['direccion'] = $datos['direccion'];
-		$data['link'] = $datos['link'];
-		$data['evento']='no';
-
-
-		$this->load->view('infoLugar',$data);
-
 	}
 }

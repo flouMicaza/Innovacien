@@ -333,5 +333,22 @@ class AdminController extends CI_Controller {
 		}
 	}
 
+	public function listaDeudas(){
+		$data['nombre'] = $this -> session ->userdata('nombre');
+		$data['tipo'] = $this -> session -> userdata('tipo');
+		$data['log'] = $this -> session -> userdata('logueado');
+		$data['mail'] = $this -> session -> userdata('mail');
+		if($data['tipo']!='administrador'){
+			$this->load->view('infiltrado',$data);
+			return;
+		}
+		else{
+			$this -> load -> model('eventosModel');
+			$data['lista'] = $this -> eventosModel -> listaTotalDeudas();
+			$this -> load -> view('listaTotalDeudas',$data);
+		}
+
+	}
+
 
 }

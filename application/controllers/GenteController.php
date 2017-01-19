@@ -31,7 +31,15 @@ class GenteController extends CI_Controller {
 		$data['tipo'] = $this -> session -> userdata('tipo');
 		$data['log'] = $this -> session -> userdata('logueado');
 		$data['mail'] = $this -> session -> userdata('mail');
-		$this->load->view('cambioClave',$data);
+
+		$mailQueViene=$_GET['mail'];
+		if(strcmp($data['mail'], $mailQueViene)==0){
+			$this->load->view('cambioClave',$data);
+		}
+
+		else{
+			$this->load->view('infiltrado',$data);
+		}
 
 	}
 
@@ -41,29 +49,38 @@ class GenteController extends CI_Controller {
 		$data['log'] = $this -> session -> userdata('logueado');
 		$data['mail'] = $this -> session -> userdata('mail');
 
-		$claveAntigua = $_POST['claveAntigua'];
-		$claveNueva1 = $_POST['nuevaContraseña'];
-		$claveNueva2 = $_POST['copiaNuevaContraseña'];
-
-		$this->load->model('usuario');
-		$datosUser=$this->usuario->sacarDatos($data['mail']);
-		$claveAntiguaReal = $datosUser['contraseña'];
-
-		if($claveNueva1!=$claveNueva2){
-			$data['error']="claveNueva";
-			$this->load->view('errorClave',$data);
+		$mailQueViene=$_POST['mail'];
+		if(strcmp($data['mail'], $mailQueViene)!=0){
+			$this->load->view('infiltrado',$data);
 		}
 
-		elseif ($claveAntiguaReal==$claveAntigua){
-			$this->usuario->cambiarClave($data['mail'],$claveNueva1);
-			$this->load->view('Inicio',$data);
+		else{	
+
+			$claveAntigua = $_POST['claveAntigua'];
+			$claveNueva1 = $_POST['nuevaContraseña'];
+			$claveNueva2 = $_POST['copiaNuevaContraseña'];
+
+			$this->load->model('usuario');
+			$datosUser=$this->usuario->sacarDatos($data['mail']);
+			$claveAntiguaReal = $datosUser['contraseña'];
+
+			if($claveNueva1!=$claveNueva2){
+				$data['error']="claveNueva";
+				$this->load->view('errorClave',$data);
+			}
+
+			elseif ($claveAntiguaReal==$claveAntigua){
+				$this->usuario->cambiarClave($data['mail'],$claveNueva1);
+				$this->load->view('Inicio',$data);
+			}
+
+			else{
+				$data['error']="claveAntigua";
+				$this->load->view('errorClave',$data);
+
+			}
 		}
 
-		else{
-			$data['error']="claveAntigua";
-			$this->load->view('errorClave',$data);
-
-		}
 	}
 
 	public function eventos(){

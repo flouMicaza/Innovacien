@@ -32,6 +32,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     
     <form class="form-horizontal" method = "post" action="<?php echo base_url();?>genteController/cambiarClave">
     <fieldset>
+    <input type="hidden" value="<?php echo $mail; ?>" name="mail">
 
     <!-- Form Name -->
     <legend>Cambiar Clave</legend>
@@ -41,7 +42,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       <label class="col-md-4 control-label" for="textinput">Contraseña Actual</label>  
       
       <div class="col-md-4">
-      <input id="textinput" name="claveAntigua" type="password" placeholder="contraseña Antigua" class="form-control input-md" required="">
+      <input id="textinput" name="claveAntigua" type="password" placeholder="Contraseña Actual" class="form-control input-md" required="">
         
       </div>
     </div>

@@ -18,17 +18,18 @@
 
 <body>
 
-    <legend>Lista deudas de <?php echo $deuda_total['nombre'].' '.$deuda_total['apellido']; ?></legend>
+    <legend>Lista deudas</legend>
 
     <div class = "container" style="overflow-x:auto;">
-	<h2>Deuda total es de $<?php echo $deuda_total['deuda_total'];?></h2>
+    *Pulse un mail para obtener mas informacion 
 	<P ALIGN=center>
 	<table ALIGN = center class = "table table-hover">
 	<tr>
 		
-		<th><FONT COLOR=#FFF8000>Fecha</FONT></th>
-		<th><FONT COLOR=#FFF8000>Informacion</FONT></th>
+		<th><FONT COLOR=#FFF8000>Nombre</FONT></th>
+		<th><FONT COLOR=#FFF8000>Mail</FONT></th>
 		<th><FONT COLOR=#FFF8000>Monto</FONT></th>
+		<th><FONT COLOR=#FFF8000>Pagar</FONT></th>
 
 		
 		
@@ -39,17 +40,11 @@
 <?php
 	$i = 0;
 	foreach ($lista -> result_array() as $row) {
-		if ($row['monto']<0){
-			$montoAux = $row['monto'] * -1;
-			$monto = '- $'.$montoAux;
-		}
-		else{
-			$monto = '  $'.$row['monto'];
-		}
+		
 		echo '<tr>
-				<td>'.$row['fecha'].'</td>
-				<td>'.$row['comentarios'].'</td>
-				<td>'.$monto.'</td>
+				<td>'.$row['nombre'].' '.$row['apellido'].'</td>
+				<td>'.$row['mail'].'</td>
+				<td> $'.$row['deuda_total'].'</td>
 				</tr>
 			  ';	
 	}	
