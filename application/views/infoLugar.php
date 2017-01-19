@@ -118,8 +118,8 @@
 	<center>
 	<div style="width:500px; padding:3px;">
 		<div style="width:245px; float:left;">
-			<form class="form-horizontal" method = "post" action="<?php echo base_url();?>eventosController/irInfoEvento">
-				<input type="hidden" name="idEvento" value=<?php echo '"'.$idEvento.'"' ?>>
+			<form class="form-horizontal" method = "get" action="<?php echo base_url();?>eventosController/irInfoEvento">
+				<input type="hidden" name="evento" value=<?php echo '"'.$idEvento.'"' ?>>
 				<button type ="submit" id="singlebutton" name="evento" value =<?php echo '"'.$idEvento.'"' ?> class="botones" >Volver al evento</button>
 
 			</form>
@@ -138,7 +138,7 @@
 		<center>
 		<?php 
 		/* link del mapa */
- 		echo $link 
+ 	
  		?>
 		</center>
 	<?php }?>

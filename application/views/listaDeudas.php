@@ -13,54 +13,49 @@
 		$this->load->view('barra_superior',$data);
 	?>
 	<style type="text/css">
-	<!--
-	.botones {
-	    font-size:15px;
-        font-family:sans-serif;
-        font-weight:bold;
-        color:white;
-        background:#FF8000;
-        border:5px;
-        width:150px;
-        height:50px;
-        border-radius: 5px;
-	}
-	-->
 </style>
 </head>
 
 <body>
 
-    <legend>Eventos Anteriores</legend>
-  
+    <legend>Lista deudas de <?php echo $deuda_total['nombre'].' '.$deuda_total['apellido']; ?></legend>
+
     <div class = "container" style="overflow-x:auto;">
-    *Seleccione un evento para ver la información.
+	<h2>Deuda total es de $<?php echo $deuda_total['deuda_total'];?></h2>
 	<P ALIGN=center>
 	<table ALIGN = center class = "table table-hover">
 	<tr>
 		
 		<th><FONT COLOR=#FFF8000>Nombre</FONT></th>
-		<th><FONT COLOR=#FFF8000>Fecha </FONT></th>
-
+		<th><FONT COLOR=#FFF8000>Apellido</FONT></th>
+		<th><FONT COLOR=#FFF8000>Tipo</FONT></th>
+		<th><FONT COLOR=#FFF8000>Correo</FONT></th>
+		<th><FONT COLOR=#FFF8000>Estado</FONT></th>
+		
 	<tr>
 
 
 
 <?php
-
 	$i = 0;
-	foreach ($eventosAnteriores -> result_array() as $row) {
+	foreach ($qry -> result_array() as $row) {
+		if ($row['activo'] == 1){
+			$estado = 'Activo';
+		}
+		else{
+			$estado = 'Desactivado';
+		}
 
 		echo '<tr>
+				<td>'.$row['nombre'].'</td>
+				<td>'.$row['apellido'].'</td>
+				<td>'.$row['tipo'].'</td>
 				<td>
-				<form action="'.base_url().'eventosController/verEventoAnterior" method="get">
-  					<button type="submit" name="evento" value="'.$row['idevento'].'" class="btn-link">'.$row['nombre'].'</button>
-  					<input type = "hidden" name="nombre" value = "'.$row['nombre'].'">
+				<form action="'.base_url().'adminController/irPerfil_Mail" method="get">
+  					<button type="submit" name="mail" value="'.$row['mail'].'" class="btn-link">'.$row['mail'].'</button>
 				</form>
 				</td>
-				<td>'.$row['fecha'].'</td>
-
-				
+				<td>'.$estado.'</td>
 			  <tr>';	
 	}	
 
@@ -71,6 +66,5 @@
 	
 </br>
 <br>
-
 
 </body>

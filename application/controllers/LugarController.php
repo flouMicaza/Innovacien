@@ -9,9 +9,9 @@ class LugarController extends CI_Controller {
 		$data['log'] = $this -> session -> userdata('logueado');
 		$data['mail'] = $this -> session -> userdata('mail');
 
-		$lugar_nombre = $_POST['lugar'];
-		if($_POST['evento']=='si'){
-			$data['idEvento']=$_POST['idEvento'];
+		$lugar_nombre = $_GET['lugar'];
+		if($_GET['evento']=='si'){
+			$data['idEvento']=$_GET['idEvento'];
 		}
 
 		$this-> load -> model('lugaresModel');
@@ -23,7 +23,7 @@ class LugarController extends CI_Controller {
 		$data['mail_encargado'] = $datos['mail'];
 		$data['direccion'] = $datos['direccion'];
 		$data['link'] = $datos['link'];
-		$data['evento']=$_POST['evento'];
+		$data['evento']=$_GET['evento'];
 		$data['cuenta']=count($datos);
 		$this->load->view('infoLugar',$data);
 	

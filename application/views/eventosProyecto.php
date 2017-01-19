@@ -56,7 +56,7 @@
 	foreach ($qry -> result_array() as $row) {
 		echo '<tr>
 				<td>
-				<form action="'.base_url().'eventosController/irInfoEvento" method="post">
+				<form action="'.base_url().'eventosController/irInfoEvento" method="get">
 					<input type = "hidden" name="nombre_proyecto" value = "'.$nombre_p.'">
   					<button type="submit" name="evento" value="'.$row['idevento'].'" class="btn-link">'.$row['nombre'].'</button>
 				</form>

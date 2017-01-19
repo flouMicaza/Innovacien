@@ -22,10 +22,6 @@ class GenteController extends CI_Controller {
 		$this->load->view('miCuenta',$data);
 	}
 
-	public function blog(){
-		$this->load->view('Blog');
-	}
-
 	public function cerrarSesion(){
 		$this->load->view('CerrarSesion');
 	}
@@ -80,6 +76,19 @@ class GenteController extends CI_Controller {
 		$eventos=$this->eventosModel->eventosFuturos($data['mail']);
 		$data['eventos']=$eventos;
 		$this->load ->view('eventosPersona',$data);
+	}
+
+	public function MilistaDeudas(){
+		$data['nombre'] = $this -> session ->userdata('nombre');
+		$data['tipo'] = $this -> session -> userdata('tipo');
+		$data['log'] = $this -> session -> userdata('logueado');
+		$data['mail'] = $this -> session -> userdata('mail');
+
+		$this -> load -> model('eventosModel');
+		$data['deuda_total'] = $this -> eventosModel ->deudaTotalMonitor($data['mail']);
+		$data['lista'] = $this -> eventosModel -> listaPagosMonitor($data['mail']);
+
+		$this -> load -> view('listaDeudas',$data);
 	}
 }
 ?>

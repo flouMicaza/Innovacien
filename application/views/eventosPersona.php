@@ -37,9 +37,13 @@
     *Seleccione un evento para ver la información.
 	<P ALIGN=center>
 	<div style="width:245px; float:right;">
-				<form class="form-horizontal" method = "post" action="<?php echo base_url();?>eventosController/eventosAnteriores">
-				<button type ="submit" id="singlebutton" value="'.$nombre_p.'" class="botones" name="nombre_p" >Eventos Anteriores </button>
+				<form class="form-horizontal" method = "get" action="<?php echo base_url();?>eventosController/eventosAnteriores">
+				<?php 
+				echo '
+				<button type ="submit" id="singlebutton" value="'.$mail.'" class="botones" name="mail" >';?>Eventos Anteriores </button>
 				</form>	
+
+
 	</div>	
 	<table ALIGN = center class = "table table-hover">
 	<tr>		
@@ -55,7 +59,7 @@
 		
 		echo '<tr>
 				<td>
-				<form action="'.base_url().'eventosController/irInfoEvento" method="post">
+				<form action="'.base_url().'eventosController/irInfoEvento" method="get">
   					<button type="submit" name="evento" value="'.$row['idevento'].'" class="btn-link">'.$row['nombre'].'</button>
 				</form>
 

@@ -91,7 +91,7 @@
 					<td>
 					<FONT COLOR=#FFF8000 FACE="sans-serif">
 					<?php  echo '
-						<form action="'.base_url().'lugarController/irLugar_nombre" method="post">
+						<form action="'.base_url().'lugarController/irLugar_nombre" method="get">
 							<input type="hidden" name="idEvento" value="'.$idEvento.'" >
 							<input type="hidden" name="evento" value="si">
 		  					<button type="submit" name="lugar" value="'.$lugar.'" class="btn-link">'.$lugar.'</button>
@@ -111,6 +111,8 @@
    		 	<ul class="dropdown-menu">
       			<li>
       				<form class="form-horizontal" method = "post" action="<?php echo base_url();?>eventosController/cargarmodificarEvento">
+      				<input type = "hidden" name="nombre_evento" value = "'.$nombre.'">
+		   			
       				<button type ="submit" id="singlebutton" name="evento" value =<?php echo '"'.$idEvento.'"' ?> class="btn-link" >ModificarEvento</button>
 					</form>      				
       			</li>
@@ -125,6 +127,17 @@
       			<li>
       				<button id="spoiler" class ="btn-link">lista participantes </button>
       			</li>
+
+
+	      		<li>
+	      			<form class="form-horizontal" method = "get" action="<?php echo base_url();?>eventos2Controller/irSubirListaAsistencia">
+
+
+	      			<button type ="submit" id="singlebutton" name="idEvento" value =<?php echo '"'.$idEvento.'"' ?> class="btn-link" >Subir Asistencia
+	      			</button>
+					</form>      				
+	      		</li>
+ 
     		</ul>
   		</div>
   		</center>
@@ -150,7 +163,10 @@
 		<th><FONT COLOR=#FFF8000>Pasa Asistencia</FONT></th>		
 	<tr>
 	<?php
+	$i=0;
 	foreach( $participantes -> result_array() as $row){
+		$spoiler = 'spoiler'.$i;
+		$mostrar = 'mostrar'.$i;
 	echo '<tr>
 			<td>'.$row['nombre'].' '.$row['apellido'].'</td>
 			<td>'.$row['mail'].'</td>
@@ -165,34 +181,81 @@
 			<td>';
 
 			if ($row['pasaAsistencia']==1) {
-				echo'
-				<form action="'.base_url().'participantesEventos/asistenciaParticipante" method="post">
-				<input type="hidden" name="idEvento" value="'.$idEvento.'" >
-				<input type="hidden" name="mail" value="'.$row['mail'].'">		  	
-		  		<button type="submit" name="asistencia" value=1 class="btn-link">Pasa asistencia</button>
-				</form>';
+				echo '
+				<input type="button" id="'.$spoiler.'" value="Pasa asistencia" class="btn-link"/>			
+				';
 			}
-			else if ($row['pasaAsistencia']==0){
-				echo'
-				<form action="'.base_url().'participantesEventos/asistenciaParticipante" method="post">
-				<input type="hidden" name="idEvento" value="'.$idEvento.'" >
-				<input type="hidden" name="mail" value="'.$row['mail'].'">		  	
-		  		<button type="submit" name="asistencia" value=0 class="btn-link"> No Pasa asistencia</button>
-				</form>';
-
+			else if ($row['pasaAsistencia']==null){
+				echo '
+				<input type="button" id="'.$spoiler.'" value="Pasa asistencia?" class="btn-link"/>			
+				';
 			}
 			else{
-				echo'
-				<form action="'.base_url().'participantesEventos/asistenciaParticipante" method="post">
-				<input type="hidden" name="idEvento" value="'.$idEvento.'" >
-				<input type="hidden" name="mail" value="'.$row['mail'].'">		  	
-		  		<button type="submit" name="asistencia" value=0 class="btn-link"> Pasar Asistencia?</button>
-				</form>';
-
-
+				echo '
+				<input type="button" id="'.$spoiler.'" value="No pasa Asistencia" class="btn-link"/>			
+				';
 			}
-			echo '</td>';
-		;
+	echo '</td>
+		</tr>
+
+		<tr>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>		
+
+			<td>
+
+
+			
+			<div class="'.$mostrar.'" style="display: none;">
+			<div class="btn-group">'			;
+			if($row['pasaAsistencia']==1){
+				echo ' 
+				<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">Pasa Asistencia<span class="caret"></span>
+    			</button>';
+    		}
+    		elseif($row['pasaAsistencia']==null){
+    			echo ' 
+				<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="caret"></span>
+    			</button>';
+    		}
+
+    		else {
+    				echo ' 
+				<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">No pasa asistencia<span class="caret"></span>
+    			</button>';
+    		}
+
+    		echo ' 
+   		 	<ul class="dropdown-menu">
+      			<li>
+      				<form class="form-horizontal" method = "post" action="'.base_url().'eventos2Controller/cambiarPasaAsistencia">
+      				<input type = "hidden" name="idevento" value = "'.$idEvento.'">
+		   			
+      				<button type ="submit" id="singlebutton" name="mail" value ="'.$row['login_mail'].'" class="btn-link" >Si pasa Asistencia</button>
+					</form>      				
+      			</li>
+      			<li>
+      				<form class="form-horizontal" method = "post" action="'.base_url().'eventos2Controller/cambiarNoPasaAsistencia">
+      				<input type = "hidden" name="idevento" value = "'.$idEvento.'">
+		   			
+      				<button type ="submit" id="singlebutton" name="mail" value ="'.$row['login_mail'].'" class="btn-link" >No pasa asistencia </button>
+					</form>      				
+      			</li>
+      		</ul>
+      		</div>';
+
+      		echo "
+
+			<script>jQuery.noConflict();jQuery(document).ready(function(){jQuery('#".$spoiler."').click(function(){jQuery('.".$mostrar."').slideToggle("; echo '"slow");});});</script>
+			';	
+			echo '
+			</div>
+			</td>
+		</tr>';
+		$i=$i+1;
+		
 	}
 
 	?>

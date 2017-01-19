@@ -32,7 +32,7 @@
  
 <fieldset>
 <legend>Busqueda de usuarios</legend>
-<form class="form-horizontal" method = "post" action="<?php echo base_url();?>adminController/irPerfil_Mail">
+<form class="form-horizontal" method = "get" action="<?php echo base_url();?>adminController/irPerfil_Mail">
 <div class="form-group">
       <label class="col-md-4 control-label" for="autocomplete">Busqueda por correo</label>  
       <div class="col-md-4">
@@ -48,7 +48,7 @@
 </form>
 </br>
 
-<form class="form-horizontal" method = "post" action="<?php echo base_url();?>adminController/listaUsuarios">
+<form class="form-horizontal" method = "get" action="<?php echo base_url();?>adminController/listaUsuarios">
 	<div class="form-group">
       <label class="col-md-4 control-label" for="selectbasic">Lista de usuarios</label>
       <div class="col-md-4">

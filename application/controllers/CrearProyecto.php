@@ -7,14 +7,20 @@ class CrearProyecto extends CI_Controller {
 		$this -> load -> helper('form');
 		$this->load->helper('url');
 	}
+
 	public function crearProyectoVista(){
 		$data['nombre'] = $this -> session ->userdata('nombre');
 		$data['tipo'] = $this -> session -> userdata('tipo');
 		$data['log'] = $this -> session -> userdata('logueado');
 		$data['mail'] = $this -> session -> userdata('mail');
 
-		$this -> load -> view('crearProyectoVista',$data);
-
+		if($data['tipo']!='administrador'){
+			$this->load->view('infiltrado',$data);
+			return;
+		}
+		else{
+			$this -> load -> view('crearProyectoVista',$data);
+		}
 
 	}
 
@@ -24,29 +30,35 @@ class CrearProyecto extends CI_Controller {
 		$data['log'] = $this -> session -> userdata('logueado');
 		$data['mail'] = $this -> session -> userdata('mail');
 
-		$nombre_proyecto = $_POST['nombre_proyecto'];	
-		$tipo_proyecto = $_POST['tipo_proyecto'];
+		if($data['tipo']!='administrador'){
+			$this->load->view('infiltrado',$data);
+			return;
+		}
+		else{
+			$nombre_proyecto = $_POST['nombre_proyecto'];	
+			$tipo_proyecto = $_POST['tipo_proyecto'];
 
-		$this -> load -> model('crearProyectoModel');
-		$this -> crearProyectoModel -> crearProyecto($nombre_proyecto,$data['mail'],$tipo_proyecto);
-	
-		$this-> load -> model('crearProyectoFlo');
-		$datos=$this-> crearProyectoFlo ->verUnProyecto($nombre_proyecto);
+			$this -> load -> model('crearProyectoModel');
+			$this -> crearProyectoModel -> crearProyecto($nombre_proyecto,$data['mail'],$tipo_proyecto);
+		
+			$this-> load -> model('crearProyectoFlo');
+			$datos=$this-> crearProyectoFlo ->verUnProyecto($nombre_proyecto);
 
-		$data['nombre_p']= $datos['nombre'];
-		$data['fecha_creacion'] = $datos['fecha_creacion'];
-		$data['creador'] = $datos['creador'];
-		$data['tipo_p'] = $datos['tipo'];
+			$data['nombre_p']= $datos['nombre'];
+			$data['fecha_creacion'] = $datos['fecha_creacion'];
+			$data['creador'] = $datos['creador'];
+			$data['tipo_p'] = $datos['tipo'];
 
-		//creacion de directorios
-		$dir = $_SERVER['DOCUMENT_ROOT'].'/proyectos/'.$nombre_proyecto;
-		mkdir($dir, 0777);
-		$dir = $_SERVER['DOCUMENT_ROOT'].'/proyectos/'.$nombre_proyecto.'/eventos';
-		mkdir($dir, 0777);
-		$dir = $_SERVER['DOCUMENT_ROOT'].'/proyectos/'.$nombre_proyecto.'/documentos';
-		mkdir($dir, 0777);
+			//creacion de directorios
+			$dir = $_SERVER['DOCUMENT_ROOT'].'/proyectos/'.$nombre_proyecto;
+			mkdir($dir, 0777);
+			$dir = $_SERVER['DOCUMENT_ROOT'].'/proyectos/'.$nombre_proyecto.'/eventos';
+			mkdir($dir, 0777);
+			$dir = $_SERVER['DOCUMENT_ROOT'].'/proyectos/'.$nombre_proyecto.'/documentos';
+			mkdir($dir, 0777);
 
-		$this->load->view('infoProyecto',$data);
+			$this->load->view('infoProyecto',$data);
+		}
 	}
 
 	public function listaParticipantes(){
@@ -55,7 +67,7 @@ class CrearProyecto extends CI_Controller {
 		$data['log'] = $this -> session -> userdata('logueado');
 		$data['mail'] = $this -> session -> userdata('mail');
 
-		$nombre_proyecto = $_POST['nombre_proyecto'];
+		$nombre_proyecto = $_GET['nombre_proyecto'];
 		$data['nombre_proyecto'] = $nombre_proyecto;
 
 		$this -> load -> model('crearProyectoModel');
@@ -70,16 +82,25 @@ class CrearProyecto extends CI_Controller {
 		$data['log'] = $this -> session -> userdata('logueado');
 		$data['mail'] = $this -> session -> userdata('mail');
 
-		$nombre_proyecto = $_POST['nombre_proyecto'];
-		$data['nombre_proyecto'] = $nombre_proyecto;
 
-		$correo = $_POST['mail_participante'];
 
-		$this -> load -> model('crearProyectoModel');
-		$this -> crearProyectoModel -> añadirParticipante($nombre_proyecto,$correo);
+		if($data['tipo']!='administrador'){
+			$this->load->view('infiltrado',$data);
+			return;
+		}
+		else{
 
-		$data['qry'] = $this -> crearProyectoModel -> listaParticipantes($nombre_proyecto);
-		$this -> load -> view('listaParticipantes_proyecto', $data);
+			$nombre_proyecto = $_POST['nombre_proyecto'];
+			$data['nombre_proyecto'] = $nombre_proyecto;
+
+			$correo = $_POST['mail_participante'];
+
+			$this -> load -> model('crearProyectoModel');
+			$this -> crearProyectoModel -> añadirParticipante($nombre_proyecto,$correo);
+
+			$data['qry'] = $this -> crearProyectoModel -> listaParticipantes($nombre_proyecto);
+			$this -> load -> view('listaParticipantes_proyecto', $data);
+		}
 	}
 
 	public function quitarParticipante(){
@@ -88,17 +109,23 @@ class CrearProyecto extends CI_Controller {
 		$data['log'] = $this -> session -> userdata('logueado');
 		$data['mail'] = $this -> session -> userdata('mail');
 
-		$nombre_proyecto = $_POST['nombre_proyecto'];
-		$data['nombre_proyecto'] = $nombre_proyecto;
+		if($data['tipo']!='administrador'){
+			$this->load->view('infiltrado',$data);
+			return;
+		}
+		else{
 
-		$correo = $_POST['mail_participante'];
+			$nombre_proyecto = $_POST['nombre_proyecto'];
+			$data['nombre_proyecto'] = $nombre_proyecto;
 
-		$this -> load -> model('crearProyectoModel');
-		$this -> crearProyectoModel -> quitarParticipante($nombre_proyecto,$correo);
+			$correo = $_POST['mail_participante'];
 
-		$data['qry'] = $this -> crearProyectoModel -> listaParticipantes($nombre_proyecto);
-		$this -> load -> view('listaParticipantes_proyecto', $data);
+			$this -> load -> model('crearProyectoModel');
+			$this -> crearProyectoModel -> quitarParticipante($nombre_proyecto,$correo);
 
+			$data['qry'] = $this -> crearProyectoModel -> listaParticipantes($nombre_proyecto);
+			$this -> load -> view('listaParticipantes_proyecto', $data);
+		}
 	}
 
 	public function vistaNoParticipantes(){
@@ -107,23 +134,30 @@ class CrearProyecto extends CI_Controller {
 		$data['log'] = $this -> session -> userdata('logueado');
 		$data['mail'] = $this -> session -> userdata('mail');
 
-		$nombre_proyecto = $_POST['nombre_proyecto'];
-		$data['nombre_proyecto'] = $nombre_proyecto;
-
-		$tipo_usr = $_POST['tipo_usr'];
-		$data['tipo_usr'] = $tipo_usr;
-
-		$this -> load -> model('crearProyectoModel');
-
-		if($tipo_usr == 'todos'){
-			$ans = $this -> crearProyectoModel -> noParticipantes($nombre_proyecto);
+		if($data['tipo']!='administrador'){
+			$this->load->view('infiltrado',$data);
+			return;
 		}
-		else{
-			$ans = $this -> crearProyectoModel -> noParticipantes_tipo($nombre_proyecto,$tipo_usr);
-		}
-		$data['qry'] = $ans;
+		else{		
 
-		$this -> load -> view('listaNoParticipantes_proyecto',$data);
+			$nombre_proyecto = $_POST['nombre_proyecto'];
+			$data['nombre_proyecto'] = $nombre_proyecto;
+
+			$tipo_usr = $_POST['tipo_usr'];
+			$data['tipo_usr'] = $tipo_usr;
+
+			$this -> load -> model('crearProyectoModel');
+
+			if($tipo_usr == 'todos'){
+				$ans = $this -> crearProyectoModel -> noParticipantes($nombre_proyecto);
+			}
+			else{
+				$ans = $this -> crearProyectoModel -> noParticipantes_tipo($nombre_proyecto,$tipo_usr);
+			}
+			$data['qry'] = $ans;
+
+			$this -> load -> view('listaNoParticipantes_proyecto',$data);
+		}
 	}
 
 	public function agregarParticipante2(){
@@ -131,27 +165,33 @@ class CrearProyecto extends CI_Controller {
 		$data['tipo'] = $this -> session -> userdata('tipo');
 		$data['log'] = $this -> session -> userdata('logueado');
 		$data['mail'] = $this -> session -> userdata('mail');
-
-		$nombre_proyecto = $_POST['nombre_proyecto'];
-		$data['nombre_proyecto'] = $nombre_proyecto;
-
-		$correo = $_POST['mail_participante'];
-
-		$this -> load -> model('crearProyectoModel');
-		$this -> crearProyectoModel -> añadirParticipante($nombre_proyecto,$correo);
-
-		$tipo_usr = $_POST['tipo_usr'];
-		$data['tipo_usr'] = $tipo_usr;
-
-		if($tipo_usr == 'todos'){
-			$ans = $this -> crearProyectoModel -> noParticipantes($nombre_proyecto);
+		if($data['tipo']!='administrador'){
+			$this->load->view('infiltrado',$data);
+			return;
 		}
 		else{
-			$ans = $this -> crearProyectoModel -> noParticipantes_tipo($nombre_proyecto,$tipo_usr);
-		}
-		$data['qry'] = $ans;
 
-		$this -> load -> view('listaNoParticipantes_proyecto',$data);
+			$nombre_proyecto = $_POST['nombre_proyecto'];
+			$data['nombre_proyecto'] = $nombre_proyecto;
+
+			$correo = $_POST['mail_participante'];
+
+			$this -> load -> model('crearProyectoModel');
+			$this -> crearProyectoModel -> añadirParticipante($nombre_proyecto,$correo);
+
+			$tipo_usr = $_POST['tipo_usr'];
+			$data['tipo_usr'] = $tipo_usr;
+
+			if($tipo_usr == 'todos'){
+				$ans = $this -> crearProyectoModel -> noParticipantes($nombre_proyecto);
+			}
+			else{
+				$ans = $this -> crearProyectoModel -> noParticipantes_tipo($nombre_proyecto,$tipo_usr);
+			}
+			$data['qry'] = $ans;
+
+			$this -> load -> view('listaNoParticipantes_proyecto',$data);
+		}
 		
 	}
 
@@ -162,20 +202,44 @@ class CrearProyecto extends CI_Controller {
 		$data['mail'] = $this -> session -> userdata('mail');
 		$data['mensaje'] = null;
 
-		$nombre_proyecto = $_POST['nombre_proyecto'];
-		$data['nombre_proyecto'] = $nombre_proyecto;
+		$nombre_proyecto = $_GET['nombre_proyecto'];
 
-		$this -> load -> model('crearProyectoModel');
-		$data['qry'] = $this -> crearProyectoModel -> listaArchivos($nombre_proyecto);
+		$this->load->model('seguridadModel');
+		$ans=$this->seguridadModel->personaEnProyecto($data['mail'],$nombre_proyecto);
+		if($ans!=null || $data['tipo']=='administrador'){
+			$data['nombre_proyecto'] = $nombre_proyecto;
 
-		$this -> load -> view('listaArchivos_proyecto', $data);
+			$this -> load -> model('crearProyectoModel');
+			$data['qry'] = $this -> crearProyectoModel -> listaArchivos($nombre_proyecto);
+
+			$this -> load -> view('listaArchivos_proyecto', $data);
+		}
+
+		elseif ($ans==null && $data['tipo']!='administrador'){
+
+			$this->load->view('infiltrado',$data);
+			return;
+		}
 	}
 
 	public function descargar(){
+
+		$data['tipo'] = $this -> session -> userdata('tipo');
+		
+		$data['mail'] = $this -> session -> userdata('mail');
 		$data['nombre_archivo'] = $_POST['nombre_archivo'];
 		$data['link_archivo'] = $_POST['link_archivo'];
 
-		$this -> load -> view('descargar_archivo',$data);
+		$this->load->model('seguridadModel');
+		$ans=$this->seguridadModel->personaEnProyecto($data['mail'],$nombre_proyecto);
+		if($ans==null && $data['tipo']!='administrador'){
+			$this->load->view('infiltrado',$data);
+			return;
+		}
+
+		else{
+			$this -> load -> view('descargar_archivo',$data);
+		}
 	}
 
 	public function subirArchivo(){
@@ -184,27 +248,35 @@ class CrearProyecto extends CI_Controller {
 		$data['log'] = $this -> session -> userdata('logueado');
 		$data['mail'] = $this -> session -> userdata('mail');
 
-		$nombre_proyecto = $_POST['nombre_proyecto'];
-		$nombre_archivo = $_POST['nombre_archivo'];
-		$data['nombre_proyecto'] = $_POST['nombre_proyecto'];
-		$descripcion = $_POST['descripcion_archivo'];
 
-		$dir = '/proyectos/'.$nombre_proyecto.'/documentos/';
-		$fichero = $_SERVER['DOCUMENT_ROOT'].$dir.basename($_FILES['archivo']['name']);
 
-		if(move_uploaded_file($_FILES['archivo']['tmp_name'], $fichero)){
-			$this -> load -> model('crearProyectoModel');
-			$ubicacion = $dir.basename($_FILES['archivo']['name']);
-			$this -> crearProyectoModel -> subirArchivo ($ubicacion, $nombre_proyecto, $nombre_archivo, $data['mail'], $descripcion);
-			$data['qry'] = $this -> crearProyectoModel -> listaArchivos($nombre_proyecto);
-			$data['mensaje'] = null;
-			$this -> load -> view('listaArchivos_proyecto', $data);
+		if ($data['tipo']!='administrador'){
+			$this->load->view('infiltrado',$data);
+			return;
 		}
 		else{
-			$this -> load -> model('crearProyectoModel');
-			$data['qry'] = $this -> crearProyectoModel -> listaArchivos($nombre_proyecto);
-			$data['mensaje'] = "error al subir archivo, intentelo otra vez";
+			$nombre_proyecto = $_POST['nombre_proyecto'];
+			$nombre_archivo = $_POST['nombre_archivo'];
+			$data['nombre_proyecto'] = $_POST['nombre_proyecto'];
+			$descripcion = $_POST['descripcion_archivo'];
 
+			$dir = '/proyectos/'.$nombre_proyecto.'/documentos/';
+			$fichero = $_SERVER['DOCUMENT_ROOT'].$dir.basename($_FILES['archivo']['name']);
+
+			if(move_uploaded_file($_FILES['archivo']['tmp_name'], $fichero)){
+				$this -> load -> model('crearProyectoModel');
+				$ubicacion = $dir.basename($_FILES['archivo']['name']);
+				$this -> crearProyectoModel -> subirArchivo ($ubicacion, $nombre_proyecto, $nombre_archivo, $data['mail'], $descripcion);
+				$data['qry'] = $this -> crearProyectoModel -> listaArchivos($nombre_proyecto);
+				$data['mensaje'] = null;
+				$this -> load -> view('listaArchivos_proyecto', $data);
+			}
+			else{
+				$this -> load -> model('crearProyectoModel');
+				$data['qry'] = $this -> crearProyectoModel -> listaArchivos($nombre_proyecto);
+				$data['mensaje'] = "error al subir archivo, intentelo otra vez";
+
+			}
 		}
 	}
 

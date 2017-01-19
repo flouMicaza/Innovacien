@@ -13,7 +13,27 @@
         $this->load->view('barra_superior',$data);
     ?>
     <style type="text/css">
-    <!--
+
+    table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+
+    }
+
+    th {
+    background-color: #Ff8000;
+    color: white;
+    }
+
+    td, th {
+    border-bottom: 1px solid #ddd;
+    text-align: center;
+    padding: 10px;
+    align: center;
+    height: 50'px;              
+}
+
     .botones {
         font-size:15px;
         font-family:sans-serif;
@@ -25,29 +45,9 @@
         height:50px;
         border-radius: 5px;
     }
-    <style>
-table {
-    font-family: arial, sans-serif;
-    border-collapse: collapse;
-    width: 100%;
-
-}
-
-th {
-    background-color: #Ff8000;
-    color: white;
-}
-
-td, th {
-    border-bottom: 1px solid #ddd;
-    text-align: center;
-    padding: 10px;
-    align: center;
-    height: 50'px;
-}
 
 
-    -->
+
 </style>
 </head>
 
@@ -71,13 +71,22 @@ td, th {
                 <td align="center">'.$row['nombre_alumno'].'</td>               
               </tr>';  
 
-    }   
-                
-
-?>    
+    }   ?>
+  
+ 
     </table>
     </div>
     </center>
+
+   <div>
+   <center>
+    <form class="form-horizontal" method = "get" action="<?php echo base_url();?>eventosController/irInfoEvento">
+    <input type="hidden" name="evento" value="<?php echo $idevento?>">
+    <button type ="submit" id="singlebutton" >Volver al evento</button>
+
+    </form>
+    </center>
+    </div>
 <br>
 
 </body>

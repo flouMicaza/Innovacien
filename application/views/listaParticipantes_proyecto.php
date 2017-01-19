@@ -68,7 +68,7 @@
 				<td>'.$row['apellido'].'</td>
 				<td>'.$row['tipo'].'</td>
 				<td>
-				<form action="'.base_url().'adminController/irPerfil_Mail" method="post">
+				<form action="'.base_url().'adminController/irPerfil_Mail" method="get">
   					<button type="submit" name="mail" value="'.$row['mail'].'" class="btn-link">'.$row['mail'].'</button>
 				</form>
 				</td>

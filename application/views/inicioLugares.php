@@ -60,7 +60,7 @@
 
 		echo '<tr>
 				<td>
-				<form action="'.base_url().'lugarController/irLugar_Nombre" method="post">
+				<form action="'.base_url().'lugarController/irLugar_Nombre" method="get">
 					<input type="hidden" name="evento" value="no" >
   					<button type="submit" name="lugar" value="'.$row['nombre_lugar'].'" class="btn-link">'.$row['nombre_lugar'].'</button>
 				</form>

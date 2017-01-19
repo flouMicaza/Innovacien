@@ -186,11 +186,11 @@
 
 	<header>
 	<img src="<?php echo base_url();?>img/logo_sup.png" WIDTH = 150 HEIGHT = 44 />
-		<h1 align="center">Error al ingresar</h1>
+		<h1 align="center">Usted no está autorizado para acceder a este sitio. </h1>
 
-	</header>
+	<header>
 	<p align="center">
-		El usuario ha sido desactivado
+		Solicite a un administrador a autorización.
 	</p>
 	<center>
 		

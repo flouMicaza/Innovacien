@@ -76,7 +76,8 @@
 	</tr>
 	
 	<?php 
-		if($tipo_usr == 'monitor'){
+		/*solo el admin puede ver estos datos*/
+		if($tipo_usr == 'monitor' && $tipo=='administrador'){
 			echo '
 				<tr>
 					<td>

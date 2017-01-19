@@ -56,6 +56,20 @@ class EventosModel extends CI_Model
         $this->db->query($qry,array($lugar,$idevento));
 	}
 
+
+
+	public function cambiarPasaAsistencia($idevento,$mail){
+		$qry="UPDATE evento_participantes SET pasaAsistencia=1 where login_mail=? and evento_idevento=?;";
+		$this->db->query($qry,array($mail,$idevento));
+
+	}
+
+	public function cambiarNoPasaAsistencia($idevento,$mail){
+		$qry="UPDATE evento_participantes SET pasaAsistencia=0 where login_mail=? and evento_idevento=?;";
+		$this->db->query($qry,array($mail,$idevento));
+
+	}
+
 	public function subirFoto($ubicacion, $idEvento, $autor){
 		$fecha = date("Y");
         $fecha.='-'.date("m");
@@ -90,9 +104,9 @@ class EventosModel extends CI_Model
 
 	public function listaParticipantes2($idEvento){
 		$qry = "SELECT * FROM login, evento_participantes WHERE login.mail IN
-		(SELECT login_mail AS mail FROM evento_participantes WHERE evento_idEvento = ?) AND login.mail = evento_participantes.login_mail 
+		(SELECT login_mail AS mail FROM evento_participantes WHERE evento_idEvento = ?) AND login.mail = evento_participantes.login_mail AND evento_participantes.evento_idEvento = ?
 			GROUP BY mail ORDER BY nombre;";
-		return $this -> db -> query($qry, $idEvento);
+		return $this -> db -> query($qry, array($idEvento,$idEvento));
 	}
 
 	public function quitarParticipante($idEvento,$mail){
@@ -122,7 +136,7 @@ class EventosModel extends CI_Model
 		return $this -> db -> query($qry, $idEvento);
 	}
 
-	public function actualizarAsistencia($mail,$idevento){
+	public function actualizarAsistencia($mail,$idevento,$asistencia){
 		$qry="UPDATE evento_participantes SET asistencia = '1' WHERE evento_idevento = ? and login_mail=?;";
 
 		$this -> db ->query($qry,array($idevento,$mail));
@@ -132,7 +146,7 @@ class EventosModel extends CI_Model
 		$qry = "SELECT * FROM evento WHERE idevento IN
 			(SELECT evento_idEvento AS idevento FROM evento_participantes
 			WHERE login_mail = ?)
-			AND fecha >= now()
+			AND fecha >= curdate() 
 			ORDER BY fecha;";
 		return $this -> db ->query($qry, array($mail));
 	}
@@ -140,7 +154,7 @@ class EventosModel extends CI_Model
 		$qry = "SELECT * FROM evento WHERE idevento IN
 			(SELECT evento_idEvento AS idevento FROM evento_participantes
 			WHERE login_mail = ?)
-			AND fecha < now()
+			AND fecha < curdate()
 			ORDER BY fecha;";
 		return $this -> db ->query($qry, array($mail));
 	}
@@ -154,6 +168,13 @@ class EventosModel extends CI_Model
 	public function ponerAlumno($idevento,$nombreAlumno){
 		$qry="INSERT INTO lista_alumnos (nombre_alumno,evento_idevento) VALUES (?,?);";
 		$this->db->query($qry,array($nombreAlumno,$idevento));
+
+	}
+
+	public function borrarAsistente($idevento,$nombreAlumno){
+		$qry="DELETE FROM lista_alumnos WHERE nombre_alumno=? and evento_idevento=?;";
+		$this->db->query($qry,array($nombreAlumno,$idevento));
+
 
 	}
 
@@ -175,7 +196,67 @@ class EventosModel extends CI_Model
 		$ans = $this -> db -> query($qry,array($mail,$idEvento));
 		return $ans->row_array();
 	}
+	public function confirmarAsistencia($idEvento,$mail_usr){
+		$qry="UPDATE evento_participantes SET asistencia = 1 WHERE evento_idevento = ? and login_mail=?;";
 
+		$this -> db ->query($qry,array($idEvento,$mail_usr));
+	}
+
+	public function negarAsistencia($idEvento,$mail_usr){
+		$qry="UPDATE evento_participantes SET asistencia = 0 WHERE evento_idevento = ? and login_mail=?;";
+
+		$this -> db ->query($qry,array($idEvento,$mail_usr));
+	}
+		
+
+	public function ingresarPagoEvento($mail_monitor,$idEvento,$comentarios,$monto){
+		$fecha = date("Y");
+        $fecha.='-'.date("m");
+        $fecha.='-'.date("d");
+
+        $qry = "INSERT INTO deudas(mail_monitor,idevento,comentarios,monto,fecha) VALUES (?,?,?,?,?)
+        	on duplicate key update monto = ?;";
+
+        $this -> db -> query($qry, array($mail_monitor,$idEvento,$comentarios,$monto,$fecha,$monto));
+	}
+
+	public function quitarPagoEvento($mail_monitor, $idEvento){
+		$qry = "DELETE FROM deudas WHERE idevento = ? AND mail_monitor = ?;";
+		$this -> db -> query($qry, array($idEvento,$mail_monitor));
+	}
+
+	public function quitarPagoAdmin($mail_monitor,$mail_admin,$monto,$comentarios){
+		$qry = "DELETE FROM deudas WHERE mail_monitor = ? AND mail_admin = ? AND monto = ? AND comentarios = ? ;";
+		$this -> db ->query($qry, array($mail_monitor,$mail_admin,$monto,$comentarios));
+	}
+
+	public function ingresarPagoAdministrador($mail_monitor,$mail_admin,$comentarios,$monto){
+		$fecha = date("Y");
+        $fecha.='-'.date("m");
+        $fecha.='-'.date("d");
+
+		$qry = "INSERT INTO deudas(mail_monitor,mail_admin,comentarios,monto,fecha) VALUES (?,?,?,?,?);";
+
+		$this -> db -> query($qry, array($mail_monitor,$mail_admin,$comentarios,$monto,$fecha));
+	}
+
+	public function listaPagosMonitor($mail_monitor){
+		$qry = "SELECT * FROM deudas WHERE mail_monitor = ? ;";
+		return $this -> db -> query($qry, array($mail_monitor));
+	}
+
+	public function deudaTotalMonitor($mail_monitor){
+		$qry = "SELECT * FROM deuda_total WHERE mail = ?;";
+		$ans = $this -> db -> query($qry,$mail_monitor);
+		return $ans -> result_array();
+	}
+
+
+	public function listaTotalDeudas(){
+		$qry = "SELECT * FROM deuda_total ORDER BY deuda_total DESC;";
+		return $this -> db > query($qry);
+	}
+	
 }
 
 

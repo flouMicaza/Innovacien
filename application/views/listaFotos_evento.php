@@ -68,7 +68,7 @@
 					<td>'.$row['fecha_subida'].'</td>
 					
 					<td>
-						<form action="'.base_url().'adminController/irPerfil_Mail" method="post">
+						<form action="'.base_url().'adminController/irPerfil_Mail" method="get">
 	  					<button type="submit" name="mail" value="'.$row['mail_autor'].'" class="btn-link">'.$row['mail_autor'].'</button>
 					</form>
 					</td>';

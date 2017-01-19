@@ -64,7 +64,7 @@
 				</td>
 				<td>'.$row['fecha_creacion'].'</td>
 				<td>
-					<form action="'.base_url().'adminController/irPerfil_Mail" method="post">
+					<form action="'.base_url().'adminController/irPerfil_Mail" method="get">
   					<button type="submit" name="mail" value="'.$row['creador'].'" class="btn-link">'.$row['creador'].'</button>
 				</form>
 				<td>

@@ -43,6 +43,30 @@
     display: table;
     margin: 0 auto; 
 } 
+
+table {
+    width: 100%;
+    display:block;
+}
+thead {
+    display: inline-block;
+    width: 100%;
+    height: 20px;
+    font-size:15px;
+        font-family:sans-serif;
+        font-weight:bold;
+}
+tbody {
+    height: 150px;
+    display: inline-block;
+    width: 100%;
+    overflow: auto;
+    font-size:15px;
+        font-family:sans-serif;
+
+}
+
+
 </style>
 </head>
 
@@ -59,19 +83,59 @@
       <input  name="nombreAlumno" type="text" placeholder="Nombre Apellido" class="form-control input-md" required="ingrese un nombre">   
       <input type="hidden" name="idevento" value= <?php echo '"'.$idevento.'"'?> >     
       </div>
-      <button type="submit" name="lugar" value="'.$lugar.'" class="botonesG">Ir</button>
+      <button type="submit" name="lugar" value="'.$lugar.'" class="botonesG">Agregar</button>
 
 </div>
 </form>
 
-<div id="inner">
-    <form class="form-horizontal" method = "post" action="<?php echo base_url();?>eventos2Controller/mostrarListaAsistencia">
+
+</p>
+<br>
+
+
+<center>
+    <legend>Lista de alumnos</legend>
+    <div class = "container"  style="overflow-x:auto;">
+    <table >
+    <thead>
+    <tr align = "center">        
+        <th text-align="center">Nombre y Apellido</th>     
+
+    </tr>
+    </thead>
+
+    <tbody>
+<?php
+
+    $i = 0;
+    foreach ($listaAlumnos->result_array() as $row) {
+        
+        echo '<tr text-algin="center">
+                <td text-align="center">'.$row['nombre_alumno'].'</td>  
+                <td>
+                  <form action="'.base_url().'eventos2Controller/borrarAsistente" method="post">
+                  <input type="hidden" name="idevento" value="'.$idevento.'" > 
+                  <button type="submit" name="nombreAsistente" value="'.$row['nombre_alumno'].'"class="btn-link">Borrar</button>
+                  </form>
+               </td>           
+              </tr>';  
+
+    }   
+                
+
+?>    
+    </tbody>
+    </table>
+    </div>
+    </center>
+    <br>
+    <br>
+    <div id="inner">
+    <form class="form-horizontal" method = "get" action="<?php echo base_url();?>eventos2Controller/mostrarListaAsistencia">
          <button type="submit" name="lugar" value="'.$lugar.'" class="botonesG">Terminar</button>
         <input type="hidden" name="idevento" value= <?php echo '"'.$idevento.'"'?> >    
 
     </form>
 </div>
-</p>
-<br>
 
 </body>

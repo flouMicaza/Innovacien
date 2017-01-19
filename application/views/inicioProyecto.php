@@ -61,7 +61,7 @@
 
 		echo '<tr>
 				<td>
-				<form action="'.base_url().'proyectosController/irProyecto" method="post">
+				<form action="'.base_url().'proyectosController/irProyecto" method="get">
   					<button type="submit" name="nombre" value="'.$row['nombre'].'" class="btn-link">'.$row['nombre'].'</button>
 				</form>
 				</td>
@@ -81,7 +81,7 @@
 </br>
 <br>
 <center>
-    <form class="form-horizontal" method = "post" action="<?php echo base_url();?>lugarController/verLugares">
+    <form class="form-horizontal" method = "get" action="<?php echo base_url();?>lugarController/verLugares">
 	<button type ="submit" id="singlebutton" name="singlebutton" class="botones" >Ir a Lugares</button>
 
 	</form>

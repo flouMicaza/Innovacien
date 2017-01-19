@@ -21,7 +21,7 @@ class ProyectosController extends CI_Controller {
 		$data['log'] = $this -> session -> userdata('logueado');
 		$data['mail'] = $this -> session -> userdata('mail');
 
-		$nombreProyecto = $_POST['nombre'];
+		$nombreProyecto = $_GET['nombre'];
 		$this-> load -> model('crearProyectoFlo');
 		$datos=$this-> crearProyectoFlo ->verUnProyecto($nombreProyecto);
 
@@ -32,7 +32,7 @@ class ProyectosController extends CI_Controller {
 
 
 		if ($data['tipo']=="monitor"){
-			$proyecto=$_POST['nombre'];
+			$proyecto=$_GET['nombre'];
 			$this->load->model('verProyectosModel');
 			$eventos=$this->verProyectosModel->eventosFuturos($proyecto,$data['mail']);
 			$data['eventos']=$eventos;

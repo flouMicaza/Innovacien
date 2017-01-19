@@ -65,7 +65,7 @@
 			<td>
 			<FONT COLOR=#FFF8000 FACE="sans-serif">
 			<?php echo '
-				<form action="'.base_url().'adminController/irPerfil_Mail" method="post">
+				<form action="'.base_url().'adminController/irPerfil_Mail" method="get">
   					<button type="submit" name="mail" value="'.$creador.'" class="btn-link">'.$creador.'</button>
 				</form>'
 			 ?>
@@ -91,7 +91,7 @@
 			</td>
 			<td>
 			<FONT COLOR=#FFF8000 FACE="sans-serif"><?php echo '
-				<form action="'.base_url().'crearProyecto/listaArchivos" method="post">
+				<form action="'.base_url().'crearProyecto/listaArchivos" method="get">
   					<button type="submit" name="nombre_proyecto" value="'.$nombre_p.'" class="btn-link">Archivos</button>
 				</form>'
 			 ?>
@@ -103,19 +103,17 @@
 </div>
 <center>
   <div class="btn-group">
-  	<form class="form-horizontal" method = "post" action="<?php echo base_url();?>crearProyecto/listaParticipantes">
+  	<form class="form-horizontal" method = "get" action="<?php echo base_url();?>crearProyecto/listaParticipantes">
 		<button type ="submit" id="singlebutton" name="nombre_proyecto" value =<?php echo '"'.$nombre_p.'"' ?> class="botones" >Ver Participantes</button>
 	</form>
   </div>
   <br>
   <br>
   <div class="btn-group">
-  	<form method = "post" action="<?php echo base_url();?>eventosController/irEventos">
+  	<form method = "get" action="<?php echo base_url();?>eventosController/irEventos">
 		<button type ="submit" id="singlebutton" name="proyectoNombre" value=<?php echo '"'.$nombre_p. '"'?> class="botones" >Ver Eventos</button>
 	</form>
   </div> 
-
-
 </center>
 <?php }
 
