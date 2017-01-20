@@ -138,7 +138,7 @@
 		<center>
 		<?php 
 		/* link del mapa */
- 	
+ 		echo $link;
  		?>
 		</center>
 	<?php }?>

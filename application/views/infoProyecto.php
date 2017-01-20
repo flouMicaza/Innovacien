@@ -114,6 +114,13 @@
 		<button type ="submit" id="singlebutton" name="proyectoNombre" value=<?php echo '"'.$nombre_p. '"'?> class="botones" >Ver Eventos</button>
 	</form>
   </div> 
+  <br>
+  <br>
+  <div class="btn-group">
+  	<form class="form-horizontal" method = "get" action="<?php echo base_url();?>descargasController/irDescargarAsistencia">
+		<button type ="submit" id="singlebutton" name="nombre_proyecto" value =<?php echo '"'.$nombre_p.'"' ?> class="botones" >Descargar Asistencia</button>
+	</form>
+  </div>
 </center>
 <?php }
 

@@ -49,8 +49,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
               <ul class="nav navbar-nav navbar-right">
               <li><a href="<?php echo base_url(); ?>adminController/miCuenta ">Mi cuenta</a></li>
               <li><a href="<?php echo base_url();?>adminController/crearCuenta">Crear Cuenta</a></li>
-              <li><a href="<?php echo base_url(); ?>adminController/irABuscar">Buscar</a></li>
               <li><a href="<?php echo base_url(); ?>proyectosController/inicioProyecto">Proyectos</a></li>
+
+              <li><a href="<?php echo base_url(); ?>adminController/listaDeudas">Deudas y pagos</a></li>
+              <li><a href="<?php echo base_url(); ?>adminController/irABuscar">Buscar</a></li>
               <li><a href="<?php echo base_url(); ?>adminController/irDescargas ">Descargas</a></li>
               <li><a href="<?php echo base_url(); ?>welcome/cerrarSesion">Cerrar Sesión</a></li>
               </ul> 
@@ -66,6 +68,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
               <ul class="nav navbar-nav navbar-right">
               <li><a href="<?php echo base_url(); ?>genteController/miCuenta ">Mi cuenta</a></li>
               <li><a href="<?php echo base_url(); ?>genteController/eventos">Eventos</a></li>
+              <?php if($tipo =="monitor"){?>
+              <li><a href="<?php echo base_url(); ?>genteController/MilistaDeudas">Pagos y Deudas</a></li>
+              <?php }?>
               <li><a href="<?php echo base_url(); ?>welcome/cerrarSesion">Cerrar Sesión</a></li>
               </ul> 
               </div>        

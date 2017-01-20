@@ -67,13 +67,19 @@ class CrearProyecto extends CI_Controller {
 		$data['log'] = $this -> session -> userdata('logueado');
 		$data['mail'] = $this -> session -> userdata('mail');
 
-		$nombre_proyecto = $_GET['nombre_proyecto'];
-		$data['nombre_proyecto'] = $nombre_proyecto;
+		if($data['tipo']=='administrador'){
+			$nombre_proyecto = $_GET['nombre_proyecto'];
+			$data['nombre_proyecto'] = $nombre_proyecto;
 
-		$this -> load -> model('crearProyectoModel');
-		$data['qry'] = $this -> crearProyectoModel -> listaParticipantes($nombre_proyecto);
+			$this -> load -> model('crearProyectoModel');
+			$data['qry'] = $this -> crearProyectoModel -> listaParticipantes($nombre_proyecto);
 
-		$this -> load -> view('listaParticipantes_proyecto', $data);
+			$this -> load -> view('listaParticipantes_proyecto', $data);
+		}
+		else{
+			$this->load->view('infiltrado');
+			return;
+		}
 	}
 
 	public function agregarParticipante(){
@@ -229,9 +235,10 @@ class CrearProyecto extends CI_Controller {
 		$data['mail'] = $this -> session -> userdata('mail');
 		$data['nombre_archivo'] = $_POST['nombre_archivo'];
 		$data['link_archivo'] = $_POST['link_archivo'];
+		$data['nombre_proyecto']=$_POST['nombre_proyecto'];
 
 		$this->load->model('seguridadModel');
-		$ans=$this->seguridadModel->personaEnProyecto($data['mail'],$nombre_proyecto);
+		$ans=$this->seguridadModel->personaEnProyecto($data['mail'],$data['nombre_proyecto']);
 		if($ans==null && $data['tipo']!='administrador'){
 			$this->load->view('infiltrado',$data);
 			return;

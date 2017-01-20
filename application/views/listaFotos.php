@@ -31,7 +31,7 @@
 <body>
 
 
-	    <legend>Fotos de: <?php echo $nombre_evento?></legend>
+	    <legend>Lista de fotos</legend>
 
 	    <div class = "container" style="overflow-x:auto;">
 	    *Seleccione un correo para ver información del usuario.
@@ -104,84 +104,3 @@
 		</P>
 		
 	<br>
-	<?php 
-		if ($mensaje != null){
-			echo '<h2> <FONT COLOR=#FFF8000>'.$mensaje.'</FONT><h2>';
-		}
-	?>
-
-	</P>
-	</div>
-
-
-<?php 
-
-	echo'
-	<form class="form-horizontal" method = "post" action="'.base_url().'eventosController/subirFoto" enctype = "multipart/form-data">
-	    <fieldset>
-
-	    <!-- Form Name -->
-	    <legend>Desea Subir alguna foto del evento?</legend>';
-
-
-
-	echo'
-	<form class="form-horizontal" method = "post" action="'.base_url().'eventosController/subirFoto" enctype = "multipart/form-data">
-	    <fieldset>
-
-	    <!-- Form Name -->
-	    <legend>Subir Archivo</legend>';
-
-
-
-echo 
-    '<div class="form-group">
-      <label class="col-md-4 control-label" for="textinput">Seleccione una foto <FONT COLOR=#FFF8000>(Maximo 5 Mb)</FONT>: </label>      
-      <div class="col-md-4">
-      	<input type="hidden" name="MAX_FILE_SIZE" value="5242880" />
-        <input name="imagen" type="file" class = "submit">
-      </div>
-    </div>
-
-    <input type = "hidden" name="nombre_evento" value = "'.$nombre_evento.'">
-    <input type = "hidden" name="nombre_proyecto" value = "'.$nombre_proyecto.'">
-    <input type = "hidden" name="idEvento" value = "'.$idEvento.'">
-    
-    <!-- Button -->
-    <div class="form-group">
-      <label class="col-md-4 control-label" for="singlebutton"></label>
-      <div class="col-md-4">
-        <button type ="submit" id="singlebutton" name="singlebutton" class="botones1">Subir Archivo</button>
-      </div>
-    </div>
-
-</fieldset>
-</form>';
- 
-
-	
-
-	echo ' 
-		<form class="form-horizontal" method = "get" action="'.base_url().'eventosController/irInfoEvento" enctype = "multipart/form-data">
-
-		<!-- Button -->
-    	<div class="form-group">
-      		<label class="col-md-4 control-label" for="singlebutton"></label>
-      		<div class="col-md-4">
-        		<button type ="submit" id="singlebutton" name="evento" value="'.$idEvento.'" class="botones">Volver al Evento</button>
-      		</div>
-   		</div>
-   		</form>
-	';
-
-
-
-
-?>
- 
-
-
-<br>
-
-
-</body>

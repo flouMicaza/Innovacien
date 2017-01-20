@@ -33,6 +33,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <body>
     
     <form class="form-horizontal" method = "post" action="<?php echo base_url();?>eventosController/crearEvento">
+
     <fieldset>
 
     <!-- Form Name -->

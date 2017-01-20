@@ -103,15 +103,23 @@
 			</form>
 
 			</td>
-			</tr>
-
+			</tr>';
+		if($tipo == 'monitor'){
+			echo'
 		<tr>
 			<td>Pago</td>
 			<td>'.$datos_evento['pago'].'</td>
 		</tr>';
 
-		$datetime1 = date_create('2009-10-13');
-		$datetime2 = date_create('2009-10-13'); 
+		}
+		$fecha_hoy = date("Y");
+        $fecha_hoy.='-'.date("m");
+        $fecha_hoy.='-'.date("d");
+
+		
+
+		$datetime1 = date_create($fecha_hoy);
+		$datetime2 = date_create($fecha); 
 		//datetime2 - datetime1
 		$interval = date_diff($datetime1, $datetime2);
 		$intervalo = $interval->format('%R%a');
@@ -166,7 +174,7 @@
 			</td>
 			<tr>';
 		}
-		if ($datos_evento['asistencia'] == 0){
+		if ($datos_evento['asistencia'] == 0 && $datos_evento['asistencia'] != null ){
 			echo'
 			<tr>
 			<th>No asistirá al evento</th>
@@ -210,24 +218,31 @@
 					<input type="hidden" name="idEvento" value="'.$idEvento.'">
 					<button type="submit" class="btn-link">Material docente</button>
 				</form>			
-				</li>
-
-				<li>
-				<form method="get" action="'.base_url().'eventos2Controller/irSubirListaAsistencia">
-					<input type="hidden" name="nombreEvento" value="'.$nombre.'">
-					<input type="hidden" name="idEvento" value="'.$idEvento.'">
-					<button type="submit" class="btn-link">Subir Asistencia </button>
-				</form>			
 				</li>';
 
 
 				if($datos_evento['asistencia']==1){
+				if($tipo == 'monitor'){
+
+
 				echo '
 				<li>
 				<form method="get" action="'.base_url().'eventos2Controller/irSubirListaAsistencia">
 					<input type="hidden" name="idEvento" value="'.$idEvento.'">
 					<button type="submit" class="btn-link">Pasar asistencia</button>
-				</form>';
+				</form>
+				</li>';
+				}
+				echo'
+				<li>
+				<form method="get" action="'.base_url().'eventosController/listaFotos">
+					<input type="hidden" name="idEvento" value="'.$idEvento.'">
+					<input type="hidden" name="nombre_evento" value="'.$nombre.'">
+					<input type="hidden" name="nombre_proyecto" value="'.$nombre_proyecto.'">
+					<button type="submit" class="btn-link">Subir Fotografía</button>
+				</form>
+				</li>
+				';
 
 				}
 

@@ -62,7 +62,7 @@
 		  	Ingrese el pago 
 		  	</th>
 		  	<td>
-		  	<input id="pago" name="pago" min="1000" type="number" placeholder="pago " class="form-control input-md" required="ingrese un pago">  
+		  	<input id="pago" name="pago" type="number" placeholder="pago " class="form-control input-md">  
 		  	</td>
 		  	<td><button type ="submit" id="singlebutton" name="mail" value="'.$row['mail'].'" >Agregar</button>
 		  	</td>

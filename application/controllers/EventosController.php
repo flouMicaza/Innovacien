@@ -141,6 +141,7 @@ class EventosController extends CI_Controller {
 			mkdir($dir,0777);
 			$dir.='/fotos';
 			mkdir($dir,0777);
+			$data['participantes']=$this -> eventosModel->listaParticipantes2($data['idEvento']);
 
 			$this-> load -> view('infoEvento',$data);
 		}	
@@ -157,7 +158,7 @@ class EventosController extends CI_Controller {
 		}
 		else{
 
-			$data['idevento']=$_POST['evento'];
+			$data['idevento']=$_GET['evento'];
 			$this->load->model('eventosModel');
 			$datos=$this->eventosModel->infoEvento($data['idevento']);
 			$this->load->model('lugaresModel');
@@ -232,9 +233,9 @@ class EventosController extends CI_Controller {
 		$data['tipo'] = $this -> session -> userdata('tipo');
 		$data['mail'] = $this -> session -> userdata('mail');
 
-		$nombre_proyecto = $_POST['nombre_proyecto'];
-		$idEvento = $_POST['idEvento'];
-		$nombre_evento = $_POST['nombre_evento'];
+		$nombre_proyecto = $_GET['nombre_proyecto'];
+		$idEvento = $_GET['idEvento'];
+		$nombre_evento = $_GET['nombre_evento'];
 		$data['nombre_proyecto'] =$nombre_proyecto;
 		$data['idEvento'] = $idEvento;
 		$data['nombre_evento'] = $nombre_evento;

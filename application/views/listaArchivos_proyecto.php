@@ -69,6 +69,7 @@
 				</form>
 				<td>
 					<form action="'.base_url().'crearProyecto/descargar" method="post" target="_blank">
+					<input type="hidden" name="nombre_proyecto" value="'.$nombre_proyecto.'">
 					<input type="hidden" name="nombre_archivo" value="'.$row['nombre_archivo'].'">
   					<button type="submit" name="link_archivo" value="'.$row['ubicacion_archivo'].'" class="btn-link" >Descargar</button>
 				</form>

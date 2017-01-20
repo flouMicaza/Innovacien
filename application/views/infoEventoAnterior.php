@@ -67,20 +67,7 @@
 
 		 <legend>Necesitamos tu opinión sobre el evento <?php echo  $nombre ; ?> </legend>
  	
- 	<?php if($datosProyecto['tipo']=='PID'){
- 		echo "PIDDDDD";
-
- 	} 
-
- 	elseif ($datosProyecto['tipo']=='Clase Normal') {
- 		echo "clase normaal";
- 	}
-	
-	elseif ($datosProyecto['tipo']=='Evento Especial') {
-	 		echo "Evento especiaaal";
-	 	} 	
-
-	 else{
+ 	<?php 
 	 	echo  '
 
 	 	<form method="post" action="'.base_url().'Eventos2Controller/guardarComentario">
@@ -97,11 +84,8 @@
 		   		<input type = "hidden" name="idEvento" value = "'.$idevento.'">
     		<button type="submit" class="botones1"> Siguiente</button>
     	</form>';
-	 }
+	 
 
-
-?>
-
-	<?php } ?>
+	} ?>
 
 </body>

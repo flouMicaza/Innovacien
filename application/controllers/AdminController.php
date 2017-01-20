@@ -350,5 +350,51 @@ class AdminController extends CI_Controller {
 
 	}
 
+	public function pagosPorUsuario(){
+		$data['nombre'] = $this -> session ->userdata('nombre');
+		$data['tipo'] = $this -> session -> userdata('tipo');
+		$data['log'] = $this -> session -> userdata('logueado');
+		$data['mail'] = $this -> session -> userdata('mail');
+		if($data['tipo']!='administrador'){
+			$this->load->view('infiltrado',$data);
+			return;
+		}
+
+		$mail_usr = $_GET['mail_usr'];
+
+		$this -> load -> model('eventosModel');
+		$data['deuda_total'] = $this -> eventosModel ->deudaTotalMonitor($mail_usr);
+		$data['lista'] = $this -> eventosModel -> listaPagosMonitor($mail_usr);
+
+		$this -> load -> view('listaDeudas',$data);
+	}
+
+	public function realizarPago(){
+		$data['nombre'] = $this -> session ->userdata('nombre');
+		$data['tipo'] = $this -> session -> userdata('tipo');
+		$data['log'] = $this -> session -> userdata('logueado');
+		$data['mail'] = $this -> session -> userdata('mail');
+		if($data['tipo']!='administrador'){
+			$this->load->view('infiltrado',$data);
+			return;
+		}
+		$comentarios =$_POST['comentarios'];
+		$mail_usr = $_POST['mail_usr'];
+		$monto = $_POST['monto'];
+		$monto = $monto * (-1);
+
+		$this -> load -> model('eventosModel');
+
+		$this -> eventosModel -> ingresarPagoAdministrador($mail_usr,$data['mail'],$comentarios,$monto);
+
+		$data['deuda_total'] = $this -> eventosModel ->deudaTotalMonitor($mail_usr);
+		$data['lista'] = $this -> eventosModel -> listaPagosMonitor($mail_usr);
+
+		$this -> load -> view('listaDeudas',$data);
+
+
+
+	}
+
 
 }

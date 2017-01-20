@@ -121,6 +121,8 @@ class Eventos2Controller extends CI_Controller {
 		}
 	}
 
+
+
 	public function borrarAsistente(){
 		$data['tipo'] = $this -> session -> userdata('tipo');
 		$data['mail'] = $this -> session -> userdata('mail');	

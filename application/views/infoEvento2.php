@@ -117,7 +117,7 @@
 					</form>      				
       			</li>
       			<li>
-      				<form class="form-horizontal" method = "get" action="<?php echo base_url();?>eventosController/listaFotos">
+      				<form class="form-horizontal" method = "post" action="<?php echo base_url();?>eventosController/listaFotos">
 						<?php echo '
 					<input type = "hidden" name="nombre_evento" value = "'.$nombre.'">
 		   			<input type = "hidden" name="nombre_proyecto" value = "'.$nombre_proyecto.'">'; ?>
@@ -125,7 +125,7 @@
 				</form>	
       			</li>
       			<li>
-      				<button id="spoiler" class ="btn-link">Lista participantes </button>
+      				<button id="spoiler" class ="btn-link">lista participantes </button>
       			</li>
 
 
@@ -147,7 +147,7 @@
 	<div id ="mostrar" style ="display:none;">
 	<legend>
 	<form class="form-horizontal" method = "post" action="<?php echo base_url();?>participantesEventos/listaParticipantes">
-    <button type ="submit" id="singlebutton" name="evento" value =<?php echo '"'.$idEvento.'"' ?> class="btn-link" >Editar lista de participantes</button>
+    <button type ="submit" id="singlebutton" name="evento" value =<?php echo '"'.$idEvento.'"' ?> class="btn-link" >Lista de participantes</button>
 		</form>
 
 	</legend>

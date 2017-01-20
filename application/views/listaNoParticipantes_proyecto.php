@@ -68,13 +68,13 @@
 				<td>'.$row['apellido'].'</td>
 				<td>'.$row['tipo'].'</td>
 				<td>
-				<form action="'.base_url().'adminController/irPerfil_Mail" method="post">
+				<form action="'.base_url().'adminController/irPerfil_Mail" method="get">
   					<button type="submit" name="mail" value="'.$row['mail'].'" class="btn-link">'.$row['mail'].'</button>
 				</form>
 				</td>
 				<td>'.$estado.'</td>
 				<td>
-				<form action="'.base_url().'participantesEventos/agregarParticipante2" method="post">
+				<form action="'.base_url().'crearProyecto/agregarParticipante2" method="post">
 				<input type="hidden" name="nombre_proyecto" value="'.$nombre_proyecto.'">
 				<input type="hidden" name="tipo_usr" value="'.$tipo_usr.'">
 				<button type="submit" name="mail_participante" value="'.$row['mail'].'" class="btn-link">Agregar</button>	
@@ -90,7 +90,7 @@
 }
 ?>
 
-<form class="form-horizontal" method = "post" action="<?php echo base_url();?>crearProyecto/listaParticipantes">
+<form class="form-horizontal" method = "get" action="<?php echo base_url();?>crearProyecto/listaParticipantes">
  	<div class="form-group">
       <label class="col-md-4 control-label" for="singlebutton"></label>
       <div class="col-md-4">

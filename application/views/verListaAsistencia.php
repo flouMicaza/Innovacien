@@ -78,6 +78,18 @@
     </div>
     </center>
 
+
+   <div>
+   <center>
+    <form class="form-horizontal" method = "get" action="<?php echo base_url();?>descargasController/descargarLista">
+    <input type="hidden" name="evento" value="<?php echo $idevento?>">
+    <button type ="submit" id="singlebutton" >Descargar Lista</button>
+
+    </form>
+    </center>
+    </div>
+
+
    <div>
    <center>
     <form class="form-horizontal" method = "get" action="<?php echo base_url();?>eventosController/irInfoEvento">
@@ -87,6 +99,10 @@
     </form>
     </center>
     </div>
+
+
+
+    
 <br>
 
 </body>

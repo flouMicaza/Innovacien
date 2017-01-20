@@ -29,10 +29,10 @@
 <body>
   <form class="form-horizontal" method = "post" action="<?php echo base_url();?>descargasController/descargar">
   <div class="form-group">
-      <label class="col-md-4 control-label" for="selectbasic">Lista de tablas</label>
+      <label class="col-md-4 control-label" for="selectbasic">Lista de cuentas: </label>
       <div class="col-md-4">
         <select id="selectbasic" name="tabla" class="form-control">
-          <option value="todos">Todas las tablas</option>      
+          <option value="todos">Todas las cuentas</option>      
           <option value="emprendedor">Emprendedores</option>
           <option value="monitor">Monitores</option>
           <option value="profesor">Profesores</option>
@@ -46,5 +46,4 @@
       </div>
     </div>
 </form>
-
 </body>
